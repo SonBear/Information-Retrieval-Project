@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://spring-server-registry:8083/eureka
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: crawler-module
+          uri: lb://crawler-service
+          predicates:
+            - Path=/crawler/**
