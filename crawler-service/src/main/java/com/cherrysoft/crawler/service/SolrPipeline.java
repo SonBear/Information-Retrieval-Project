@@ -29,6 +29,7 @@ public class SolrPipeline implements Pipeline {
       NamedList<Object> result = solrClient.request(req);
       System.out.println("Result: " + result);
     } catch (SolrServerException | IOException e) {
+      e.printStackTrace();
       throw new RuntimeException(e);
     }
   }
