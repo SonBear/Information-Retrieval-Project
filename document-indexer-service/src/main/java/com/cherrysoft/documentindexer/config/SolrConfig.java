@@ -1,4 +1,4 @@
-package com.cherrysoft.solrfacade.config;
+package com.cherrysoft.documentindexer.config;
 
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
@@ -25,9 +25,9 @@ public class SolrConfig {
 
   @Bean
   @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-  public ContentStreamUpdateRequest contentStreamUpdateRequest() {
+  public ContentStreamUpdateRequest contentStreamUpdateRequest(ModifiableSolrParams params) {
     ContentStreamUpdateRequest request = new ContentStreamUpdateRequest("/update/extract");
-    request.setParams(defaultSolrParams());
+    request.setParams(params);
     return request;
   }
 

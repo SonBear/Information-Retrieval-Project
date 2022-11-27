@@ -1,4 +1,4 @@
-package com.cherrysoft.solrfacade.service;
+package com.cherrysoft.documentindexer.service;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.solr.client.solrj.SolrServerException;

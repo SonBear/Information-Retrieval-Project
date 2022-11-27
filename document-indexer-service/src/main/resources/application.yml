@@ -1,1 +1,14 @@
-solr.baseUrl=http://localhost:8983/solr/sample_core
+solr:
+  baseUrl: http://solr-server:8983/solr/sample_core
+
+server:
+  port: 8091
+
+spring:
+  application:
+    name: document-indexer-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://spring-server-registry:8081/eureka
