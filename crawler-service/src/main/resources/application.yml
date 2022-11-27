@@ -1,0 +1,14 @@
+solr:
+  baseUrl: http://solr-server:8983/solr/sample_core
+
+server:
+  port: 8092
+
+spring:
+  application:
+    name: crawler-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://spring-server-registry:8081/eureka

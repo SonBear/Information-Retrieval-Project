@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+  server-registry:
+    container_name: 'spring-server-registry'
+    build:
+      dockerfile: './server-registry/Dockerfile'
+    ports:
+      - "8081:8081"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8081/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  api-gateway:
+    container_name: 'spring-api-gateway'
+    build:
+      dockerfile: './api-gateway/Dockerfile'
+    ports:
+      - "8080:8080"
+    depends_on:
+      server-registry:
+        condition: service_healthy
+
+  document-indexer-service:
+    container_name: 'spring-document-indexer'
+    build:
+      dockerfile: './document-indexer-service/Dockerfile'
+    ports:
+      - "8091:8091"
+    depends_on:
+      server-registry:
+        condition: service_healthy
+
+  crawler-service:
+    container_name: 'spring-crawler-service'
+    build:
+      dockerfile: './crawler-service/Dockerfile'
+    ports:
+      - "8092:8092"
+    depends_on:
+      server-registry:
+        condition: service_healthy
+
+  solr-server:
+    image: solr:8.11.2
+    ports:
+      - "8983:8983"
+    volumes:
+      - ./solr-data/plugins:/opt/solr/plugins
+      - ./solr-data/sample_core:/var/solr/data/sample_core

@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://spring-server-registry:8081/eureka
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: document-indexer-module
+          uri: lb://document-indexer-service
+          predicates:
+            - Path=/document-indexer/**
+          filters:
+            - RewritePath=/document-indexer,/
+        - id: crawler-module
+          uri: lb://crawler-service
+          predicates:
+            - Path=/crawler/**
+          filters:
+            - RewritePath=/crawler,/
