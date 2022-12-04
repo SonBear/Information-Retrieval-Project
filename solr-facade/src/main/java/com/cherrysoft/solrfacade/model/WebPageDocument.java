@@ -19,6 +19,9 @@ public class WebPageDocument {
   @Field("language")
   private String language;
 
+  @Field("score")
+  private float score;
+
   public String getTextSpanish() {
     return extractText(spanishField);
   }
@@ -36,6 +39,10 @@ public class WebPageDocument {
 
   public String getLanguage() {
     return language;
+  }
+
+  public float getScore() {
+    return score;
   }
 
 }
