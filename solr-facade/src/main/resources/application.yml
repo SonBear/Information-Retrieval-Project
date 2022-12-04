@@ -1,0 +1,9 @@
+solr:
+  baseUrl: http://solr-server:8983/solr/sample_core
+
+server:
+  port: 8093
+
+spring:
+  application:
+    name: solr-facade-service
