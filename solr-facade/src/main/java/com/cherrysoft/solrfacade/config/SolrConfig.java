@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static com.cherrysoft.solrfacade.util.FieldConstants.FIELD_TEXT_ENGLISH;
+import static com.cherrysoft.solrfacade.util.FieldConstants.FIELD_TEXT_SPANISH;
+
 @Configuration
 public class SolrConfig {
   @Value("${solr.baseUrl}")
@@ -25,9 +28,15 @@ public class SolrConfig {
     SolrQuery query = new SolrQuery();
     query.setRequestHandler("/select");
     query.setParam("defType", "edismax");
-    query.setParam("qf", "attr_text_spanish attr_text_english");
+    query.setParam("qf", FIELD_TEXT_SPANISH + " " + FIELD_TEXT_ENGLISH);
     query.setParam("fl", "*", "score");
     query.setParam("wt", "json");
+
+    // Highlighting
+    query.setParam("hl", "true");
+    query.setParam("hl.snippets", "3");
+    query.setParam("hl.fl", FIELD_TEXT_SPANISH, FIELD_TEXT_ENGLISH);
+
     return query;
   }
 
