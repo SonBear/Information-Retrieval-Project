@@ -9,4 +9,5 @@ public class WebPageDocumentDTO {
   private final String textSpanish;
   private final String textEnglish;
   private final String language;
+  private final float score;
 }

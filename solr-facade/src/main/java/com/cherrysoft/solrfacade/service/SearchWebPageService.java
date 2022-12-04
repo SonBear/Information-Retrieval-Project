@@ -1,5 +1,6 @@
 package com.cherrysoft.solrfacade.service;
 
+import com.cherrysoft.solrfacade.model.SearchWebPageResult;
 import com.cherrysoft.solrfacade.model.WebPageDocument;
 import lombok.RequiredArgsConstructor;
 import org.apache.solr.client.solrj.SolrClient;
@@ -9,7 +10,11 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -17,19 +22,34 @@ public class SearchWebPageService {
   private final SolrClient solrClient;
   private final SolrQuery solrQuery;
 
-  public List<WebPageDocument> search(String query) {
+  public SearchWebPageResult search(String query) {
     try {
-      return tryToSearch(query);
+      QueryResponse response = tryGetSearchResponse(query);
+      List<WebPageDocument> documents = getWebPageDocuments(response);
+      List<String> hlSnippets = getHighlightSnippets(response);
+      return new SearchWebPageResult(documents, hlSnippets);
     } catch (SolrServerException | IOException e) {
       e.printStackTrace();
-      return List.of();
+      return SearchWebPageResult.EMPTY;
     }
   }
 
-  private List<WebPageDocument> tryToSearch(String query) throws SolrServerException, IOException {
+  private QueryResponse tryGetSearchResponse(String query) throws SolrServerException, IOException {
     solrQuery.setQuery(query);
-    QueryResponse result = solrClient.query(solrQuery);
-    return result.getBeans(WebPageDocument.class);
+    return solrClient.query(solrQuery);
+  }
+
+  private List<WebPageDocument> getWebPageDocuments(QueryResponse response) {
+    return response.getBeans(WebPageDocument.class);
+  }
+
+  private List<String> getHighlightSnippets(QueryResponse response) {
+    return response.getHighlighting()
+        .values().stream()
+        .map(Map::values)
+        .flatMap(Collection::stream)
+        .flatMap(Collection::stream)
+        .collect(toList());
   }
 
 }
