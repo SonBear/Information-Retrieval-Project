@@ -73,7 +73,7 @@
        The example below can be used to load a solr-contrib along
        with their external dependencies.
     -->
-    <!-- <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-ltr-\d.*\.jar" /> -->
+  <!-- <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-ltr-\d.*\.jar" /> -->
 
   <!-- an exact 'path' can be used instead of a 'dir' to specify a
        specific jar file.  This will cause a serious error to be logged
@@ -82,10 +82,11 @@
   <!--
      <lib path="../a-jar-that-does-not-exist.jar" />
   -->
-  <lib dir="${solr.install.dir:../../..}/contrib/extraction/lib" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../..}/contrib/velocity/lib" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../..}/dist/" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../..}/plugins/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../..}/contrib/extraction/lib"
+       regex=".*\.jar"/>
+  <lib dir="${solr.install.dir:../../..}/contrib/velocity/lib" regex=".*\.jar"/>
+  <lib dir="${solr.install.dir:../../..}/dist/" regex=".*\.jar"/>
+  <lib dir="${solr.install.dir:../../..}/plugins/" regex=".*\.jar"/>
 
   <!-- Data Directory
 
@@ -262,7 +263,7 @@
 
        For more details see http://wiki.apache.org/solr/SolrJmx
     -->
-  <jmx />
+  <jmx/>
   <!-- If you want to connect to a particular server, specify the
        agentId
     -->
@@ -453,7 +454,7 @@
            size="10"
            initialSize="0"
            autowarmCount="10"
-           regenerator="solr.NoOpRegenerator" />
+           regenerator="solr.NoOpRegenerator"/>
 
     <!-- Field Value Cache
 
@@ -529,19 +530,19 @@
       -->
     <queryResultMaxDocsCached>200</queryResultMaxDocsCached>
 
-  <!-- Use Filter For Sorted Query
+    <!-- Use Filter For Sorted Query
 
-   A possible optimization that attempts to use a filter to
-   satisfy a search.  If the requested sort does not include
-   score, then the filterCache will be checked for a filter
-   matching the query. If found, the filter will be used as the
-   source of document ids, and then the sort will be applied to
-   that.
+     A possible optimization that attempts to use a filter to
+     satisfy a search.  If the requested sort does not include
+     score, then the filterCache will be checked for a filter
+     matching the query. If found, the filter will be used as the
+     source of document ids, and then the sort will be applied to
+     that.
 
-   For most situations, this will not be useful unless you
-   frequently get the same search repeatedly with different sort
-   options, and none of them ever use "score"
--->
+     For most situations, this will not be useful unless you
+     frequently get the same search repeatedly with different sort
+     options, and none of them ever use "score"
+  -->
     <!--
        <useFilterForSortedQuery>true</useFilterForSortedQuery>
       -->
@@ -599,18 +600,18 @@
      circuit breakers
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <!-- Circuit Breakers
+  <!-- Circuit Breakers
 
-     Circuit breakers are designed to allow stability and predictable query
-     execution. They prevent operations that can take down the node and cause
-     noisy neighbour issues.
+   Circuit breakers are designed to allow stability and predictable query
+   execution. They prevent operations that can take down the node and cause
+   noisy neighbour issues.
 
-     This flag is the uber control switch which controls the activation/deactivation of all circuit
-     breakers. If a circuit breaker wishes to be independently configurable,
-     they are free to add their specific configuration but need to ensure that this flag is always
-     respected - this should have veto over all independent configuration flags.
-    -->
-    <circuitBreakers enabled="true">
+   This flag is the uber control switch which controls the activation/deactivation of all circuit
+   breakers. If a circuit breaker wishes to be independently configurable,
+   they are free to add their specific configuration but need to ensure that this flag is always
+   respected - this should have veto over all independent configuration flags.
+  -->
+  <circuitBreakers enabled="true">
 
     <!-- Memory Circuit Breaker Configuration
 
@@ -636,19 +637,19 @@
    <memBreaker enabled="true" threshold="75"/>
     -->
 
-      <!-- CPU Circuit Breaker Configuration
+    <!-- CPU Circuit Breaker Configuration
 
-     Specific configuration for CPU utilization based circuit breaker. This configuration defines whether the circuit breaker is enabled
-     and the average load over the last minute at which the circuit breaker should start rejecting queries.
+   Specific configuration for CPU utilization based circuit breaker. This configuration defines whether the circuit breaker is enabled
+   and the average load over the last minute at which the circuit breaker should start rejecting queries.
 
-     Consider a scenario where the max heap allocated is 4 GB and memoryCircuitBreakerThreshold is
-     defined as 75. Threshold JVM usage will be 4 * 0.75 = 3 GB. Its generally a good idea to keep this value between 75 - 80% of maximum heap
-     allocated.
+   Consider a scenario where the max heap allocated is 4 GB and memoryCircuitBreakerThreshold is
+   defined as 75. Threshold JVM usage will be 4 * 0.75 = 3 GB. Its generally a good idea to keep this value between 75 - 80% of maximum heap
+   allocated.
+  -->
+
+    <!--
+     <cpuBreaker enabled="true" threshold="75"/>
     -->
-
-      <!--
-       <cpuBreaker enabled="true" threshold="75"/>
-      -->
 
   </circuitBreakers>
 
@@ -695,10 +696,10 @@
       -->
 
     <requestParsers enableRemoteStreaming="true"
-                enableStreamBody="true"
-                multipartUploadLimitInKB="2048000"
-                formdataUploadLimitInKB="2048"
-                addHttpRequestToContext="false"/>
+                    enableStreamBody="true"
+                    multipartUploadLimitInKB="2048000"
+                    formdataUploadLimitInKB="2048"
+                    addHttpRequestToContext="false"/>
 
     <!-- HTTP Caching
 
@@ -707,7 +708,7 @@
          The options below instruct Solr not to output any HTTP Caching
          related headers
       -->
-    <httpCaching never304="true" />
+    <httpCaching never304="true"/>
     <!-- If you include a <cacheControl> directive, it will be used to
          generate a Cache-Control header (as well as an Expires header
          if the value contains "max-age=")
@@ -863,8 +864,8 @@
   </requestHandler>
 
   <requestHandler name="/update/extract"
-                startup="lazy"
-                class="solr.extraction.ExtractingRequestHandler" >
+                  startup="lazy"
+                  class="solr.extraction.ExtractingRequestHandler">
     <lst name="invariants">
       <str name="lowernames">true</str>
       <str name="fmap.content">text</str>
@@ -1057,7 +1058,8 @@
     </lst>
   </searchComponent>
 
-  <requestHandler name="/suggest" class="org.apache.solr.handler.component.SearchHandler">
+  <requestHandler name="/suggest"
+                  class="org.apache.solr.handler.component.SearchHandler">
     <lst name="defaults">
       <str name="echoParams">none</str>
       <str name="spellcheck">true</str>
@@ -1162,7 +1164,7 @@
 
       <!-- Configure the standard encoder -->
       <encoder name="html"
-               class="solr.highlight.HtmlEncoder" />
+               class="solr.highlight.HtmlEncoder"/>
 
       <!-- Configure the standard fragListBuilder -->
       <fragListBuilder name="simple"
@@ -1250,15 +1252,21 @@
        See http://wiki.apache.org/solr/GuessingFieldTypes
     -->
   <updateProcessor class="solr.UUIDUpdateProcessorFactory" name="uuid"/>
-  <updateProcessor class="solr.RemoveBlankFieldUpdateProcessorFactory" name="remove-blank"/>
-  <updateProcessor class="solr.FieldNameMutatingUpdateProcessorFactory" name="field-name-mutating">
+  <updateProcessor class="solr.RemoveBlankFieldUpdateProcessorFactory"
+                   name="remove-blank"/>
+  <updateProcessor class="solr.FieldNameMutatingUpdateProcessorFactory"
+                   name="field-name-mutating">
     <str name="pattern">[^\w-\.]</str>
     <str name="replacement">_</str>
   </updateProcessor>
-  <updateProcessor class="solr.ParseBooleanFieldUpdateProcessorFactory" name="parse-boolean"/>
-  <updateProcessor class="solr.ParseLongFieldUpdateProcessorFactory" name="parse-long"/>
-  <updateProcessor class="solr.ParseDoubleFieldUpdateProcessorFactory" name="parse-double"/>
-  <updateProcessor class="solr.ParseDateFieldUpdateProcessorFactory" name="parse-date">
+  <updateProcessor class="solr.ParseBooleanFieldUpdateProcessorFactory"
+                   name="parse-boolean"/>
+  <updateProcessor class="solr.ParseLongFieldUpdateProcessorFactory"
+                   name="parse-long"/>
+  <updateProcessor class="solr.ParseDoubleFieldUpdateProcessorFactory"
+                   name="parse-double"/>
+  <updateProcessor class="solr.ParseDateFieldUpdateProcessorFactory"
+                   name="parse-date">
     <arr name="format">
       <str>yyyy-MM-dd['T'[HH:mm[:ss[.SSS]][z</str>
       <str>yyyy-MM-dd['T'[HH:mm[:ss[,SSS]][z</str>
@@ -1269,7 +1277,8 @@
       <str>EEE MMM ppd HH:mm:ss [z ]yyyy</str>
     </arr>
   </updateProcessor>
-  <updateProcessor class="solr.AddSchemaFieldsUpdateProcessorFactory" name="add-schema-fields">
+  <updateProcessor class="solr.AddSchemaFieldsUpdateProcessorFactory"
+                   name="add-schema-fields">
     <lst name="typeMapping">
       <str name="valueClass">java.lang.String</str>
       <str name="fieldType">text_general</str>
@@ -1300,8 +1309,9 @@
   </updateProcessor>
 
   <!-- The update.autoCreateFields property can be turned to false to disable schemaless mode -->
-  <updateRequestProcessorChain name="add-unknown-fields-to-the-schema" default="${update.autoCreateFields:true}"
-           processor="uuid,remove-blank,field-name-mutating,parse-boolean,parse-long,parse-double,parse-date,add-schema-fields">
+  <updateRequestProcessorChain name="add-unknown-fields-to-the-schema"
+                               default="${update.autoCreateFields:true}"
+                               processor="uuid,remove-blank,field-name-mutating,parse-boolean,parse-long,parse-double,parse-date,add-schema-fields">
     <processor class="solr.LogUpdateProcessorFactory"/>
     <processor class="solr.DistributedUpdateProcessorFactory"/>
     <processor class="solr.RunUpdateProcessorFactory"/>
@@ -1321,8 +1331,8 @@
       <str name="langid.threshold">0.7</str>
       <str name="langid.whitelist">en,es</str>
     </processor>
-    <processor class="solr.LogUpdateProcessorFactory" />
-    <processor class="solr.RunUpdateProcessorFactory" />
+    <processor class="solr.LogUpdateProcessorFactory"/>
+    <processor class="solr.RunUpdateProcessorFactory"/>
   </updateRequestProcessorChain>
 
   <!-- Deduplication
@@ -1380,17 +1390,17 @@
      plain text so that they are easy to read in *any* browser.
      If you expect a MIME type of "application/json" just remove this override.
     -->
-    <str name="content-type">text/plain; charset=UTF-8</str>
+    <!-- str name="content-type">text/plain; charset=UTF-8</str -->
   </queryResponseWriter>
 
   <queryResponseWriter name="velocity" class="solr.VelocityResponseWriter">
     <str name="template.base.dir">${velocity.template.base.dir:}</str>
-  <!--
-    <str name="init.properties.file">velocity-init.properties</str>
-    <lst name="tools">
-      <str name="mytool">com.example.MyCustomTool</str>
-    </lst>
-  -->
+    <!--
+      <str name="init.properties.file">velocity-init.properties</str>
+      <lst name="tools">
+        <str name="mytool">com.example.MyCustomTool</str>
+      </lst>
+    -->
   </queryResponseWriter>
 
   <!-- Query Parsers
