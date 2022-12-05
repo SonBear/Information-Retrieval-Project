@@ -1,4 +1,4 @@
-package com.cherrysoft.crawler.service;
+package com.cherrysoft.crawler.service.pipeline;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -20,7 +20,7 @@ public class SolrPipeline implements Pipeline {
 
   @Override
   public void process(ResultItems resultItems, Task task) {
-    if (resultItems.getAll().size() == 0) {
+    if (resultItems.getAll().isEmpty()) {
       return;
     }
     String text = resultItems.get("text");
