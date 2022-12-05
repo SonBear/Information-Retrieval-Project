@@ -19,15 +19,9 @@ public class DocumentController {
     return ResponseEntity.ok("Pong");
   }
 
-  @PostMapping("/test-pdf")
-  public ResponseEntity<Void> uploadTestPdf() {
-    documentService.uploadTestPdf();
-    return ResponseEntity.noContent().build();
-  }
-
-  @PostMapping("/upload-pdf")
-  public ResponseEntity<String> testContentType(@RequestParam("file") MultipartFile file) {
-    documentService.uploadPdf(file);
+  @PostMapping("/upload")
+  public ResponseEntity<Void> uploadFile(@RequestParam("files") MultipartFile[] files) {
+    documentService.uploadFiles(files);
     return ResponseEntity.noContent().build();
   }
 

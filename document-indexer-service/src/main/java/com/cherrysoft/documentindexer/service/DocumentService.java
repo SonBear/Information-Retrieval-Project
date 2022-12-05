@@ -6,44 +6,47 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.common.util.ContentStreamBase;
 import org.apache.solr.common.util.NamedList;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
-@RequestScope
 @RequiredArgsConstructor
 public class DocumentService {
   private final HttpSolrClient solrClient;
-  private final ContentStreamUpdateRequest req;
 
-  public void uploadTestPdf() {
+  public void uploadFiles(MultipartFile[] files) {
+    uploadFiles(List.of(files));
+  }
+
+  public void uploadFiles(List<MultipartFile> files) {
     try {
-      File testFile = ResourceUtils.getFile("classpath:sample.pdf");
-      req.addFile(testFile, MediaType.APPLICATION_PDF_VALUE);
-      NamedList<Object> result = solrClient.request(req);
-      System.out.println("Result: " + result);
+      tryUploadFiles(files);
     } catch (IOException | SolrServerException e) {
-      e.printStackTrace();
       throw new RuntimeException(e);
     }
   }
 
-  public void uploadPdf(MultipartFile file) {
-    try {
-      var pdf = new ContentStreamBase.ByteArrayStream(file.getBytes(), "pdf", MediaType.APPLICATION_PDF_VALUE);
-      req.addContentStream(pdf);
-      NamedList<Object> result = solrClient.request(req);
-      System.out.println("Result: " + result);
-    } catch (SolrServerException | IOException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
+  private void tryUploadFiles(List<MultipartFile> files) throws IOException, SolrServerException {
+    var req = createUpdateRequest();
+    for (MultipartFile file : files) {
+      var byteArray = toByteArrayStream(file);
+      req.addContentStream(byteArray);
     }
+    NamedList<Object> result = solrClient.request(req);
+    System.out.println("Result: " + result);
+  }
+
+  private ContentStreamUpdateRequest createUpdateRequest() {
+    var request = new ContentStreamUpdateRequest("/update/extract");
+    request.setParam("commit", "true");
+    return request;
+  }
+
+  private ContentStreamBase.ByteArrayStream toByteArrayStream(MultipartFile file) throws IOException {
+    return new ContentStreamBase.ByteArrayStream(file.getBytes(), file.getName(), file.getContentType());
   }
 
 }
