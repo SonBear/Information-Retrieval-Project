@@ -1,11 +1,11 @@
-package com.cherrysoft.crawler.service;
+package com.cherrysoft.crawler.service.processor;
 
 import org.jsoup.nodes.Attribute;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 
-public class GenericPageProcessor implements PageProcessor {
+public class GenericWebPageProcessor implements PageProcessor {
   private Html html;
 
   @Override

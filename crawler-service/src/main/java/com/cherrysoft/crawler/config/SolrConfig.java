@@ -1,6 +1,6 @@
 package com.cherrysoft.crawler.config;
 
-import com.cherrysoft.crawler.service.SolrPipeline;
+import com.cherrysoft.crawler.service.pipeline.SolrPipeline;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.common.params.ModifiableSolrParams;
