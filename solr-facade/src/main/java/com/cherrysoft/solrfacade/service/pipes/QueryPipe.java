@@ -8,14 +8,14 @@ import static java.util.Objects.nonNull;
 public class QueryPipe {
   private QueryFilter filter;
 
-  public void send(WebPagesResult result) {
+  public void send(WebPagesResult payload) {
     if (nonNull(filter)) {
-      filter.processQueryResult(result);
+      filter.processQueryResult(payload);
     }
   }
 
-  public void setFilter(QueryFilter queryFilter) {
-    this.filter = queryFilter;
+  public void setFilter(QueryFilter filter) {
+    this.filter = filter;
   }
 
 }

@@ -18,7 +18,7 @@ public class HighlightQueryFilter extends QueryFilter {
   @Override
   public void processQueryResult(WebPagesResult payload) {
     payload.addHighlightSnippets(getHighlightSnippets());
-    getPipe().send(payload);
+    super.processQueryResult(payload);
   }
 
   private List<String> getHighlightSnippets() {

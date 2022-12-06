@@ -4,6 +4,7 @@ import com.cherrysoft.solrfacade.model.WebPagesResult;
 import com.cherrysoft.solrfacade.service.filters.DocumentQueryFilter;
 import com.cherrysoft.solrfacade.service.filters.HighlightQueryFilter;
 import com.cherrysoft.solrfacade.service.filters.QueryFilter;
+import com.cherrysoft.solrfacade.service.filters.SpellcheckQueryFilter;
 import com.cherrysoft.solrfacade.service.pipes.QueryPipe;
 import lombok.RequiredArgsConstructor;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -41,7 +42,8 @@ public class ProcessSearchResultPipeline {
   private List<QueryFilter> createFilters() {
     return List.of(
         new DocumentQueryFilter(response),
-        new HighlightQueryFilter(response)
+        new HighlightQueryFilter(response),
+        new SpellcheckQueryFilter(response)
     );
   }
 

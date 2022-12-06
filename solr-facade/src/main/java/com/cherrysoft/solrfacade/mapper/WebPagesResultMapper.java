@@ -12,11 +12,19 @@ public abstract class WebPagesResultMapper {
   private WebPageDocumentMapper webPageDocumentMapper;
 
   public WebPagesResultDTO toDto(WebPagesResult result) {
-    var webPageDocumentDtos = webPageDocumentMapper.toDtoList(result.getWebPageDocuments());
-    return new WebPagesResultDTO(
-        webPageDocumentDtos,
-        Collections.unmodifiableList(result.getHighlightSnippets())
-    );
+    var webPageDocumentDtoList = webPageDocumentMapper.toDtoList(result.getWebPageDocuments());
+    return WebPagesResultDTO.builder()
+        .documents(webPageDocumentDtoList)
+        .hlSnippets(Collections.unmodifiableList(result.getHighlightSnippets()))
+        .spellcheckResult(spellcheckResultDto(result.getSpellcheckResult()))
+        .build();
+  }
+
+  private WebPagesResultDTO.SpellcheckResultDTO spellcheckResultDto(WebPagesResult.SpellcheckResult spellcheckResult) {
+    return WebPagesResultDTO.SpellcheckResultDTO.builder()
+        .suggestions(spellcheckResult.getSuggestions())
+        .collations(spellcheckResult.getCollations())
+        .build();
   }
 
   @Autowired

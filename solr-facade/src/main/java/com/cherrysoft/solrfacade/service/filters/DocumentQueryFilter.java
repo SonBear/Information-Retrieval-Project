@@ -15,7 +15,7 @@ public class DocumentQueryFilter extends QueryFilter {
   @Override
   public void processQueryResult(WebPagesResult payload) {
     payload.addWebPageDocuments(getWebPageDocuments());
-    getPipe().send(payload);
+    super.processQueryResult(payload);
   }
 
   private List<WebPageDocument> getWebPageDocuments() {

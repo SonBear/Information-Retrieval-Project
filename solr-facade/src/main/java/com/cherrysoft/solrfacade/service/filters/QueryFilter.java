@@ -14,5 +14,8 @@ public abstract class QueryFilter {
   protected final QueryResponse response;
   private QueryPipe pipe;
 
-  public abstract void processQueryResult(WebPagesResult payload);
+  public void processQueryResult(WebPagesResult payload) {
+    getPipe().send(payload);
+  }
+
 }
