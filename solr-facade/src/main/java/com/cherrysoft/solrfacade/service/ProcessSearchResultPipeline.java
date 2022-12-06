@@ -21,7 +21,7 @@ public class ProcessSearchResultPipeline {
   }
 
   public WebPagesResult process() {
-    WebPagesResult payload = WebPagesResult.EMPTY;
+    WebPagesResult payload = new WebPagesResult();
     buildPipeline();
     sendThroughPipeline(payload);
     return payload;
