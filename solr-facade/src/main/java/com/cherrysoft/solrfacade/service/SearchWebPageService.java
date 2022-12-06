@@ -15,10 +15,10 @@ import java.io.IOException;
 public class SearchWebPageService {
   private final SolrClient solrClient;
   private final SolrQuery solrQuery;
-  private String query;
+  private SearchSpec searchSpec;
 
-  public WebPagesResult search(String query) {
-    this.query = query;
+  public WebPagesResult search(SearchSpec searchSpec) {
+    this.searchSpec = searchSpec;
     try {
       QueryResponse response = tryGetSearchResponse();
       return getSearchResultFrom(response);
@@ -29,7 +29,8 @@ public class SearchWebPageService {
   }
 
   private QueryResponse tryGetSearchResponse() throws SolrServerException, IOException {
-    solrQuery.setQuery(query);
+    solrQuery.setQuery(searchSpec.getQuery());
+    solrQuery.setParam("spellcheck.dictionary", searchSpec.getDictionary());
     return solrClient.query(solrQuery);
   }
 
