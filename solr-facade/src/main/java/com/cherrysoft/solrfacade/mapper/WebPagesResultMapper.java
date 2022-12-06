@@ -1,19 +1,19 @@
 package com.cherrysoft.solrfacade.mapper;
 
-import com.cherrysoft.solrfacade.controller.dto.SearchWebPageResultDTO;
-import com.cherrysoft.solrfacade.model.SearchWebPageResult;
+import com.cherrysoft.solrfacade.controller.dto.WebPagesResultDTO;
+import com.cherrysoft.solrfacade.model.WebPagesResult;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 
 @Mapper(componentModel = "spring")
-public abstract class SearchWebPageResultMapper {
+public abstract class WebPagesResultMapper {
   private WebPageDocumentMapper webPageDocumentMapper;
 
-  public SearchWebPageResultDTO toDto(SearchWebPageResult result) {
+  public WebPagesResultDTO toDto(WebPagesResult result) {
     var webPageDocumentDtos = webPageDocumentMapper.toDtoList(result.getWebPageDocuments());
-    return new SearchWebPageResultDTO(
+    return new WebPagesResultDTO(
         webPageDocumentDtos,
         Collections.unmodifiableList(result.getHighlightSnippets())
     );

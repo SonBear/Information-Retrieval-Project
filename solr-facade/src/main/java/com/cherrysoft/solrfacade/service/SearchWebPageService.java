@@ -21,8 +21,10 @@ import static java.util.stream.Collectors.toList;
 public class SearchWebPageService {
   private final SolrClient solrClient;
   private final SolrQuery solrQuery;
+  private String query;
 
-  public SearchWebPageResult search(String query) {
+  public WebPagesResult search(String query) {
+    this.query = query;
     try {
       QueryResponse response = tryGetSearchResponse(query);
       List<WebPageDocument> documents = getWebPageDocuments(response);

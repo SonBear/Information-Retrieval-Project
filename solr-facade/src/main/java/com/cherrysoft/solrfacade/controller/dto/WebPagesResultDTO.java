@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class SearchWebPageResultDTO {
+public class WebPagesResultDTO {
   private final List<WebPageDocumentDTO> documents;
   private final List<String> hlSnippets;
 }

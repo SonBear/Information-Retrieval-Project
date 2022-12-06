@@ -9,8 +9,8 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 @Getter
-public final class SearchWebPageResult {
-  public static final SearchWebPageResult EMPTY = new SearchWebPageResult();
+public final class WebPagesResult {
+  public static final WebPagesResult EMPTY = new WebPagesResult();
   private final List<WebPageDocument> webPageDocuments;
   private List<String> highlightSnippets;
 
