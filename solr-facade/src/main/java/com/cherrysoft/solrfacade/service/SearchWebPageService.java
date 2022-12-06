@@ -1,7 +1,6 @@
 package com.cherrysoft.solrfacade.service;
 
-import com.cherrysoft.solrfacade.model.SearchWebPageResult;
-import com.cherrysoft.solrfacade.model.WebPageDocument;
+import com.cherrysoft.solrfacade.model.WebPagesResult;
 import lombok.RequiredArgsConstructor;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -10,11 +9,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -26,32 +20,21 @@ public class SearchWebPageService {
   public WebPagesResult search(String query) {
     this.query = query;
     try {
-      QueryResponse response = tryGetSearchResponse(query);
-      List<WebPageDocument> documents = getWebPageDocuments(response);
-      List<String> hlSnippets = getHighlightSnippets(response);
-      return new SearchWebPageResult(documents, hlSnippets);
+      QueryResponse response = tryGetSearchResponse();
+      return getSearchResultFrom(response);
     } catch (SolrServerException | IOException e) {
       e.printStackTrace();
-      return SearchWebPageResult.EMPTY;
+      return WebPagesResult.EMPTY;
     }
   }
 
-  private QueryResponse tryGetSearchResponse(String query) throws SolrServerException, IOException {
+  private QueryResponse tryGetSearchResponse() throws SolrServerException, IOException {
     solrQuery.setQuery(query);
     return solrClient.query(solrQuery);
   }
 
-  private List<WebPageDocument> getWebPageDocuments(QueryResponse response) {
-    return response.getBeans(WebPageDocument.class);
-  }
-
-  private List<String> getHighlightSnippets(QueryResponse response) {
-    return response.getHighlighting()
-        .values().stream()
-        .map(Map::values)
-        .flatMap(Collection::stream)
-        .flatMap(Collection::stream)
-        .collect(toList());
+  private WebPagesResult getSearchResultFrom(QueryResponse response) {
+    return ProcessSearchResultPipeline.process(response);
   }
 
 }
