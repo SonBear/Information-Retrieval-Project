@@ -10,4 +10,6 @@ public interface URLRepository {
 
   WebPageUrlSet getSavedUrls();
 
+  WebPageUrlSet deleteUrls(WebPageUrlSet urlSet);
+
 }

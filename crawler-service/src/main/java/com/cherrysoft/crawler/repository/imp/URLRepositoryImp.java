@@ -22,7 +22,7 @@ public class URLRepositoryImp implements URLRepository {
   @Override
   public void mergeAndSaveUrls(WebPageUrlSet urlList) {
     WebPageUrlSet savedUrls = getSavedUrls();
-    WebPageUrlSet withNewUrls = savedUrls.mergedWith(urlList);
+    WebPageUrlSet withNewUrls = savedUrls.merge(urlList);
     saveUrls(withNewUrls);
   }
 
@@ -57,6 +57,14 @@ public class URLRepositoryImp implements URLRepository {
       }.getType());
       return new WebPageUrlSet(new HashSet<>(savedUrls));
     }
+  }
+
+  @Override
+  public WebPageUrlSet deleteUrls(WebPageUrlSet urlSet) {
+    WebPageUrlSet savedUrlSet = getSavedUrls();
+    WebPageUrlSet remainingUrls = savedUrlSet.asymmetricDiff(urlSet);
+    saveUrls(remainingUrls);
+    return savedUrlSet.intersection(urlSet); // Actual removed urls.
   }
 
 }
