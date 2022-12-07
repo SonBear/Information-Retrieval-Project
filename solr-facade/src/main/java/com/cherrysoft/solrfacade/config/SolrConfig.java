@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import static com.cherrysoft.solrfacade.util.DictionaryConstants.DICTIONARY_SPANISH;
-import static com.cherrysoft.solrfacade.util.FieldConstants.FIELD_TEXT_ENGLISH;
-import static com.cherrysoft.solrfacade.util.FieldConstants.FIELD_TEXT_SPANISH;
+import static com.cherrysoft.solrfacade.util.Fields.FIELD_TEXT_ENGLISH;
+import static com.cherrysoft.solrfacade.util.Fields.FIELD_TEXT_SPANISH;
 
 @Configuration
 public class SolrConfig {

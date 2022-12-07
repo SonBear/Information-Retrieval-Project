@@ -6,14 +6,16 @@ import org.apache.solr.client.solrj.beans.Field;
 
 import java.util.List;
 
-import static com.cherrysoft.solrfacade.util.FieldConstants.FIELD_TEXT_ENGLISH;
-import static com.cherrysoft.solrfacade.util.FieldConstants.FIELD_TEXT_SPANISH;
+import static com.cherrysoft.solrfacade.util.Fields.*;
 import static java.util.Objects.isNull;
 
 @Getter
 public class RecoveredDocument {
   private String textSpanish;
   private String textEnglish;
+  private String title;
+  private String url;
+  private String contentType;
   @Field private String language;
   @Field private float score;
 
@@ -25,6 +27,21 @@ public class RecoveredDocument {
   @Field(FIELD_TEXT_SPANISH)
   void setTextSpanish(List<String> spanishField) {
     this.textSpanish = extractText(spanishField);
+  }
+
+  @Field(FIELD_TITLE)
+  void setTitle(List<String> titleField) {
+    this.title = extractText(titleField);
+  }
+
+  @Field(FIELD_URL)
+  void setUrl(List<String> urlField) {
+    this.url = extractText(urlField);
+  }
+
+  @Field(FIELD_CONTENT_TYPE)
+  void setContentType(List<String> contentTypeField) {
+    this.contentType = extractText(contentTypeField);
   }
 
   private String extractText(List<String> field) {
