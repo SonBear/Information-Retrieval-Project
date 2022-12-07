@@ -1,6 +1,6 @@
 package com.cherrysoft.solrfacade.service.filters;
 
-import com.cherrysoft.solrfacade.model.WebPagesResult;
+import com.cherrysoft.solrfacade.model.SearchResult;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
 
@@ -16,8 +16,8 @@ public class SpellcheckQueryFilter extends QueryFilter {
   }
 
   @Override
-  public void processQueryResult(WebPagesResult payload) {
-    WebPagesResult.SpellcheckResult spellcheckResult = WebPagesResult.SpellcheckResult.builder()
+  public void processQueryResult(SearchResult payload) {
+    SearchResult.SpellcheckResult spellcheckResult = SearchResult.SpellcheckResult.builder()
         .suggestions(getSuggestions())
         .collations(getCollations())
         .build();

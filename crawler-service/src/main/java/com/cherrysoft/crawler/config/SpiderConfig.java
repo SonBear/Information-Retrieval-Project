@@ -3,7 +3,7 @@ package com.cherrysoft.crawler.config;
 import com.cherrysoft.crawler.service.http.StatusCodeAwareHttpClientDownloader;
 import com.cherrysoft.crawler.service.listener.SaveSuccessfullyCrawledUrlListener;
 import com.cherrysoft.crawler.service.pipeline.SolrPipeline;
-import com.cherrysoft.crawler.service.processor.GenericWebPageProcessor;
+import com.cherrysoft.crawler.service.processor.WebPageProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ public class SpiderConfig {
 
   @Bean
   public Spider defaultSpider(SolrPipeline solrPipeline) throws JMException {
-    return Spider.create(new GenericWebPageProcessor())
+    return Spider.create(new WebPageProcessor())
         .addPipeline(solrPipeline)
         .setDownloader(downloader)
         .setSpiderListeners(spiderListeners())
