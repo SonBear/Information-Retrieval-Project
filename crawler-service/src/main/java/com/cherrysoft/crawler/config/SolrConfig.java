@@ -1,8 +1,8 @@
 package com.cherrysoft.crawler.config;
 
+import com.cherrysoft.crawler.service.WebPageUpdaterService;
 import com.cherrysoft.crawler.service.pipeline.SolrPipeline;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +14,8 @@ public class SolrConfig {
   private String baseSolrUrl;
 
   @Bean
-  public SolrPipeline solrPipeline() {
-    return new SolrPipeline(solrClient(), contentStreamUpdateRequest());
+  public SolrPipeline solrPipeline(WebPageUpdaterService webPageUpdaterService) {
+    return new SolrPipeline(webPageUpdaterService);
   }
 
   @Bean
@@ -28,14 +28,7 @@ public class SolrConfig {
   }
 
   @Bean
-  public ContentStreamUpdateRequest contentStreamUpdateRequest() {
-    ContentStreamUpdateRequest request = new ContentStreamUpdateRequest("/update/extract");
-    request.setParams(defaultSolrParams());
-    return request;
-  }
-
-  @Bean
-  public ModifiableSolrParams defaultSolrParams() {
+  public ModifiableSolrParams defaultUpdateRequestParams() {
     ModifiableSolrParams defaultParams = new ModifiableSolrParams();
     defaultParams.add("commit", "true");
     return defaultParams;
