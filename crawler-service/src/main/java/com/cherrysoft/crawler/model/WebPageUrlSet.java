@@ -26,7 +26,7 @@ public class WebPageUrlSet {
     this.urls = urls;
   }
 
-  public WebPageUrlSet mergedWith(WebPageUrlSet otherUrlSet) {
+  public WebPageUrlSet merge(WebPageUrlSet otherUrlSet) {
     Set<String> mergedUrls = new HashSet<>(urls);
     mergedUrls.addAll(otherUrlSet.getUrls());
     return new WebPageUrlSet(mergedUrls);
@@ -36,6 +36,12 @@ public class WebPageUrlSet {
     Set<String> diff = new HashSet<>(urls);
     diff.removeAll(otherUrlSet.getUrls());
     return new WebPageUrlSet(diff);
+  }
+
+  public WebPageUrlSet intersection(WebPageUrlSet otherUrlSet) {
+    Set<String> intersection = new HashSet<>(urls);
+    intersection.retainAll(otherUrlSet.getUrls());
+    return new WebPageUrlSet(intersection);
   }
 
   public boolean isEmpty() {
