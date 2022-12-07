@@ -11,19 +11,19 @@ import java.util.List;
 
 @Getter
 @Setter
-public final class WebPagesResult {
-  public static final WebPagesResult EMPTY = new WebPagesResult();
-  private final List<WebPageDocument> webPageDocuments;
+public final class SearchResult {
+  public static final SearchResult EMPTY = new SearchResult();
+  private final List<RecoveredDocument> recoveredDocuments;
   private final List<String> highlightSnippets;
   private SpellcheckResult spellcheckResult;
 
-  public WebPagesResult() {
-    this.webPageDocuments = new ArrayList<>();
+  public SearchResult() {
+    this.recoveredDocuments = new ArrayList<>();
     this.highlightSnippets = new ArrayList<>();
   }
 
-  public void addWebPageDocuments(List<WebPageDocument> documents) {
-    webPageDocuments.addAll(documents);
+  public void addWebPageDocuments(List<RecoveredDocument> documents) {
+    recoveredDocuments.addAll(documents);
   }
 
   public void addHighlightSnippets(List<String> snippets) {

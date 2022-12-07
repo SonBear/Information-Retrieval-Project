@@ -7,8 +7,8 @@ import java.util.List;
 
 @Data
 @Builder
-public class WebPagesResultDTO {
-  private final List<WebPageDocumentDTO> documents;
+public class SearchResultDTO {
+  private final List<RecoveredDocumentDTO> documents;
   private final SpellcheckResultDTO spellcheckResult;
   private final List<String> hlSnippets;
 

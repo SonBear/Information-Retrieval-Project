@@ -1,6 +1,6 @@
 package com.cherrysoft.solrfacade.service.filters;
 
-import com.cherrysoft.solrfacade.model.WebPagesResult;
+import com.cherrysoft.solrfacade.model.SearchResult;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
 import java.util.Collection;
@@ -16,7 +16,7 @@ public class HighlightQueryFilter extends QueryFilter {
   }
 
   @Override
-  public void processQueryResult(WebPagesResult payload) {
+  public void processQueryResult(SearchResult payload) {
     payload.addHighlightSnippets(getHighlightSnippets());
     super.processQueryResult(payload);
   }

@@ -1,7 +1,7 @@
 package com.cherrysoft.solrfacade.service;
 
-import com.cherrysoft.solrfacade.model.WebPagesResult;
-import com.cherrysoft.solrfacade.service.filters.DocumentQueryFilter;
+import com.cherrysoft.solrfacade.model.SearchResult;
+import com.cherrysoft.solrfacade.service.filters.RecoveredDocumentsQueryFilter;
 import com.cherrysoft.solrfacade.service.filters.HighlightQueryFilter;
 import com.cherrysoft.solrfacade.service.filters.QueryFilter;
 import com.cherrysoft.solrfacade.service.filters.SpellcheckQueryFilter;
@@ -12,17 +12,17 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ProcessSearchResultPipeline {
+public class SearchResultProcessor {
   private final QueryResponse response;
   private QueryPipe firstPipe;
 
-  public static WebPagesResult process(QueryResponse response) {
-    var pipeline = new ProcessSearchResultPipeline(response);
-    return pipeline.process();
+  public static SearchResult processResult(QueryResponse response) {
+    var pipeline = new SearchResultProcessor(response);
+    return pipeline.processResult();
   }
 
-  public WebPagesResult process() {
-    WebPagesResult payload = new WebPagesResult();
+  public SearchResult processResult() {
+    SearchResult payload = new SearchResult();
     buildPipeline();
     sendThroughPipeline(payload);
     return payload;
@@ -41,13 +41,13 @@ public class ProcessSearchResultPipeline {
 
   private List<QueryFilter> createFilters() {
     return List.of(
-        new DocumentQueryFilter(response),
+        new RecoveredDocumentsQueryFilter(response),
         new HighlightQueryFilter(response),
         new SpellcheckQueryFilter(response)
     );
   }
 
-  private void sendThroughPipeline(WebPagesResult payload) {
+  private void sendThroughPipeline(SearchResult payload) {
     firstPipe.send(payload);
   }
 

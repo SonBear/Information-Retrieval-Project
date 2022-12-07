@@ -1,7 +1,7 @@
 package com.cherrysoft.solrfacade.service;
 
 import com.cherrysoft.solrfacade.model.SearchSpec;
-import com.cherrysoft.solrfacade.model.WebPagesResult;
+import com.cherrysoft.solrfacade.model.SearchResult;
 import lombok.RequiredArgsConstructor;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -13,19 +13,19 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
-public class SearchWebPageService {
+public class SearchService {
   private final SolrClient solrClient;
   private final SolrQuery solrQuery;
   private SearchSpec searchSpec;
 
-  public WebPagesResult search(SearchSpec searchSpec) {
+  public SearchResult search(SearchSpec searchSpec) {
     this.searchSpec = searchSpec;
     try {
       QueryResponse response = tryGetSearchResponse();
       return processResultFrom(response);
     } catch (SolrServerException | IOException e) {
       e.printStackTrace();
-      return WebPagesResult.EMPTY;
+      return SearchResult.EMPTY;
     }
   }
 
@@ -35,8 +35,8 @@ public class SearchWebPageService {
     return solrClient.query(solrQuery);
   }
 
-  private WebPagesResult processResultFrom(QueryResponse response) {
-    return ProcessSearchResultPipeline.process(response);
+  private SearchResult processResultFrom(QueryResponse response) {
+    return SearchResultProcessor.processResult(response);
   }
 
 }

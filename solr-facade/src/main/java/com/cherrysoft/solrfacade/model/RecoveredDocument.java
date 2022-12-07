@@ -11,7 +11,7 @@ import static com.cherrysoft.solrfacade.util.FieldConstants.FIELD_TEXT_SPANISH;
 import static java.util.Objects.isNull;
 
 @Getter
-public class WebPageDocument {
+public class RecoveredDocument {
   private String textSpanish;
   private String textEnglish;
   @Field private String language;
