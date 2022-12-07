@@ -30,6 +30,7 @@
        have your own custom plugins.
     -->
 
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
   <!-- Controls what version of Lucene various components of Solr
        adhere to.  Generally, you want to use the latest version to
        get all bug fixes and improvements. It is highly recommended
@@ -138,7 +139,7 @@
   <indexConfig>
     <!-- maxFieldLength was removed in 4.0. To get similar behavior, include a
          LimitTokenCountFilterFactory in your fieldType definition. E.g.
-     <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="10000"/>
+     <queryFilter class="solr.LimitTokenCountFilterFactory" maxTokenCount="10000"/>
     -->
     <!-- Maximum time to wait for a write lock (ms) for an IndexWriter. Default: 1000 -->
     <!-- <writeLockTimeout>1000</writeLockTimeout>  -->
@@ -499,10 +500,10 @@
 
     <!-- Use Filter For Sorted Query
 
-         A possible optimization that attempts to use a filter to
+         A possible optimization that attempts to use a queryFilter to
          satisfy a search.  If the requested sort does not include
-         score, then the filterCache will be checked for a filter
-         matching the query. If found, the filter will be used as the
+         score, then the filterCache will be checked for a queryFilter
+         matching the query. If found, the queryFilter will be used as the
          source of document ids, and then the sort will be applied to
          that.
 
@@ -532,10 +533,10 @@
 
     <!-- Use Filter For Sorted Query
 
-     A possible optimization that attempts to use a filter to
+     A possible optimization that attempts to use a queryFilter to
      satisfy a search.  If the requested sort does not include
-     score, then the filterCache will be checked for a filter
-     matching the query. If found, the filter will be used as the
+     score, then the filterCache will be checked for a queryFilter
+     matching the query. If found, the queryFilter will be used as the
      source of document ids, and then the sort will be applied to
      that.
 
@@ -784,6 +785,7 @@
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
       <str name="spellcheck">on</str>
+      <str name="spellcheck.dictionary">spellcheck_es</str>
       <str name="spellcheck.extendedResults">true</str>
       <str name="spellcheck.count">5</str>
       <str name="spellcheck.alternativeTermCount">2</str>
@@ -792,7 +794,6 @@
       <str name="spellcheck.collateExtendedResults">true</str>
       <str name="spellcheck.maxCollationTries">5</str>
       <str name="spellcheck.maxCollations">3</str>
-
       <!-- Default search field
          <str name="df">text</str>
         -->
@@ -852,6 +853,9 @@
          <str>nameOfCustomComponent2</str>
        </arr>
          -->
+    <arr name="last-components">
+      <str>spellcheck</str>
+    </arr>
   </requestHandler>
 
   <!-- A request handler that returns indented JSON by default -->
@@ -1354,7 +1358,7 @@
        </processor>
        <processor class="solr.LogUpdateProcessorFactory" />
        <processor class="solr.RunUpdateProcessorFactory" />
-      <filter class="org.example.ResolveSynonymsTokenFilterFactory" />
+      <queryFilter class="org.example.ResolveSynonymsTokenFilterFactory" />
      </updateRequestProcessorChain>
     -->
 
