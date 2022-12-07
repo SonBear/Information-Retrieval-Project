@@ -1,27 +1,25 @@
-package com.cherrysoft.crawler.config;
+package com.cherrysoft.crawler.service;
 
 import com.cherrysoft.crawler.service.http.StatusCodeAwareHttpClientDownloader;
 import com.cherrysoft.crawler.service.listener.SaveSuccessfullyCrawledUrlListener;
 import com.cherrysoft.crawler.service.pipeline.SolrPipeline;
 import com.cherrysoft.crawler.service.processor.WebPageProcessor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.SpiderListener;
 
-import javax.management.JMException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
-public class SpiderConfig {
+public class SpiderFactory {
+  private final SolrPipeline solrPipeline;
   private final SaveSuccessfullyCrawledUrlListener listener;
   private final StatusCodeAwareHttpClientDownloader downloader;
 
-  @Bean
-  public Spider defaultSpider(SolrPipeline solrPipeline) throws JMException {
+  public Spider createSpider() {
     return Spider.create(new WebPageProcessor())
         .addPipeline(solrPipeline)
         .setDownloader(downloader)
