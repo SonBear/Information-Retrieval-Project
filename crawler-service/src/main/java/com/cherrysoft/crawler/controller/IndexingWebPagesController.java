@@ -20,11 +20,6 @@ public class IndexingWebPagesController {
   private final WebPageUrlSetMapper mapper;
   private final IndexedWebPagesResultMapper resultMapper;
 
-  @GetMapping("/ping")
-  public ResponseEntity<String> ping() {
-    return ResponseEntity.ok("Pong");
-  }
-
   @PostMapping("/index")
   public ResponseEntity<IndexedWebPagesResultDTO> indexUrls(@RequestBody @Valid WebPageUrlSetDTO urlSetDto) {
     WebPageUrlSet urlSet = mapper.toWebPageUrlSet(urlSetDto);
