@@ -44,6 +44,26 @@ services:
       server-registry:
         condition: service_healthy
 
+  solr-facade:
+    container_name: 'spring-solr-facade'
+    build:
+      dockerfile: './solr-facade/Dockerfile'
+    ports:
+      - "8093:8093"
+    depends_on:
+      server-registry:
+        condition: service_healthy
+
+  frontend:
+    container_name: 'react-frontend'
+    depends_on:
+      - api-gateway
+    restart: always
+    build:
+      dockerfile: './frontend/Dockerfile'
+    ports:
+      - "3000:80"
+
   solr-server:
     image: solr:8.11.2
     ports:

@@ -18,9 +18,17 @@ spring:
             - Path=/document-indexer/**
           filters:
             - RewritePath=/document-indexer,/
+
         - id: crawler-module
           uri: lb://crawler-service
           predicates:
             - Path=/crawler/**
           filters:
             - RewritePath=/crawler,/
+
+        - id: solr-facade-module
+          uri: lb://solr-facade-service
+          predicates:
+            - Path=/facade/**
+          filters:
+            - RewritePath=/facade,/
