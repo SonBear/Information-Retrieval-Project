@@ -9,12 +9,12 @@ COPY ./crawler-service/pom.xml .
 
 RUN mvn verify --fail-never
 
-# Build Api Gateway application
+# Build Crawler service application
 COPY ./crawler-service/ .
 
-RUN mvn package -DskipTests
+RUN mvn clean package -DskipTests
 
-# Running Server Registry application
+# Running Crawler service application
 FROM amazoncorretto:11-alpine3.16
 
 COPY --from=build /app/target/crawler-service-0.0.1-SNAPSHOT.jar /app/crawler-service.jar

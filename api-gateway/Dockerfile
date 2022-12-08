@@ -12,9 +12,9 @@ RUN mvn verify --fail-never
 # Build Api Gateway application
 COPY ./api-gateway/ .
 
-RUN mvn package -DskipTests
+RUN mvn clean package -DskipTests
 
-# Running Server Registry application
+# Running Api Gateway application
 FROM amazoncorretto:11-alpine3.16
 
 COPY --from=build /app/target/api-gateway-0.0.1-SNAPSHOT.jar /app/api-gateway.jar
