@@ -138,7 +138,7 @@
   </fieldType>
 
   <fieldType name="document_type" class="solr.TextField" positionIncrementGap="100">
-    <analyzer type="index">
+    <analyzer>
       <tokenizer class="solr.WhitespaceTokenizerFactory"/>
       <filter class="com.cherrysoft.plugins.ContentTypeMapperFilterFactory" />
     </analyzer>

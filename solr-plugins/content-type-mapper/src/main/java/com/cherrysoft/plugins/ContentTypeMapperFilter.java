@@ -22,7 +22,7 @@ public class ContentTypeMapperFilter extends TokenFilter {
     char[] buffer = termAttribute.buffer();
     int length = termAttribute.length();
     String token = new String(buffer, 0, length);
-    termAttribute.setEmpty().append(MimeTypes.EXTENSIONS.get(token));
+    termAttribute.setEmpty().append(MimeTypes.EXTENSIONS.getOrDefault(token, token));
     return true;
   }
 
