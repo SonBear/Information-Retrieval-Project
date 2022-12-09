@@ -6,7 +6,7 @@ import org.apache.solr.client.solrj.beans.Field;
 
 import java.util.List;
 
-import static com.cherrysoft.solrfacade.util.Fields.*;
+import static com.cherrysoft.solrfacade.util.SearchFields.*;
 import static java.util.Objects.isNull;
 
 @Getter
