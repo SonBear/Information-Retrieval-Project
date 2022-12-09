@@ -2,11 +2,10 @@ package com.cherrysoft.solrfacade;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration;
-import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-@SpringBootApplication(exclude = {EurekaClientAutoConfiguration.class, EurekaDiscoveryClientConfiguration.class})
-// @EnableEurekaClient
+@SpringBootApplication
+@EnableEurekaClient
 public class SolrFacadeApplication {
 
   public static void main(String[] args) {

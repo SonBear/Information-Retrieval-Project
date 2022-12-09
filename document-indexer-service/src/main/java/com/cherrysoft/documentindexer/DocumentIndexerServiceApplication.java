@@ -2,15 +2,14 @@ package com.cherrysoft.documentindexer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.solr.SolrAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-@SpringBootApplication(exclude = {SolrAutoConfiguration.class})
+@SpringBootApplication
 @EnableEurekaClient
-public class DocumentIndexerService {
+public class DocumentIndexerServiceApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(DocumentIndexerService.class, args);
+    SpringApplication.run(DocumentIndexerServiceApplication.class, args);
   }
 
 }
