@@ -2,7 +2,9 @@ package com.cherrysoft.solrfacade.service;
 
 import com.cherrysoft.solrfacade.model.FacetResult;
 import com.cherrysoft.solrfacade.model.FacetSpec;
+import com.cherrysoft.solrfacade.model.SupportedFacetField;
 import com.cherrysoft.solrfacade.service.processors.FacetResultProcessor;
+import com.cherrysoft.solrfacade.util.FacetFields;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -11,9 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-
-import static com.cherrysoft.solrfacade.util.FacetFields.DOCUMENT_TYPE_FQ_WITH_TAG;
-import static com.cherrysoft.solrfacade.util.FacetFields.LANGUAGE_FQ_WITH_TAG;
 
 @Service
 public class FacetService {
@@ -52,18 +51,17 @@ public class FacetService {
   }
 
   private String createFqForDocumentType() {
-    return createFilterQuery(DOCUMENT_TYPE_FQ_WITH_TAG, facetSpec.getDocumentTypesAsString());
+    var documentType = facetSpec.getFacetFqField(SupportedFacetField.DOCUMENT_TYPE);
+    return documentType
+        .withPrefix(FacetFields.DOCUMENT_TYPE_FQ_TAG)
+        .getAsStringWithValuesJoinedBySpaces();
   }
 
   private String createFqForLanguage() {
-    return createFilterQuery(LANGUAGE_FQ_WITH_TAG, facetSpec.getLanguagesAsString());
-  }
-
-  private String createFilterQuery(String field, String values) {
-    if (values.isBlank()) {
-      return values;
-    }
-    return String.format("%s:(%s)", field, values);
+    var language = facetSpec.getFacetFqField(SupportedFacetField.LANGUAGE);
+    return language
+        .withPrefix(FacetFields.LANGUAGE_FQ_TAG)
+        .getAsStringWithValuesJoinedBySpaces();
   }
 
 }
