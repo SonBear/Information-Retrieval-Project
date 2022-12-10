@@ -1,14 +1,18 @@
 package com.cherrysoft.solrfacade.config;
 
+import com.cherrysoft.solrfacade.util.SupportedDictionary;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
-import static com.cherrysoft.solrfacade.util.DictionaryConstants.DICTIONARY_SPANISH;
-import static com.cherrysoft.solrfacade.util.Fields.FIELD_TEXT_ENGLISH;
-import static com.cherrysoft.solrfacade.util.Fields.FIELD_TEXT_SPANISH;
+import static com.cherrysoft.solrfacade.util.FacetFields.DOCUMENT_TYPE_FF_EX_WITH_TAG;
+import static com.cherrysoft.solrfacade.util.FacetFields.LANGUAGE_FF_WITH_EX_TAG;
+import static com.cherrysoft.solrfacade.util.SearchFields.FIELD_TEXT_ENGLISH;
+import static com.cherrysoft.solrfacade.util.SearchFields.FIELD_TEXT_SPANISH;
 
 @Configuration
 public class SolrConfig {
@@ -25,13 +29,12 @@ public class SolrConfig {
   }
 
   @Bean
-  public SolrQuery defaultSolrQuery() {
-    SolrQuery query = new SolrQuery();
-    query.setRequestHandler("/select");
+  @Primary
+  public SolrQuery searchSolrQuery() {
+    SolrQuery query = createSolrQueryWithBaseParams();
     query.setParam("defType", "edismax");
     query.setParam("qf", FIELD_TEXT_SPANISH + " " + FIELD_TEXT_ENGLISH);
     query.setParam("fl", "*", "score");
-    query.setParam("wt", "json");
 
     // Highlighting
     query.setParam("hl", "true");
@@ -39,8 +42,27 @@ public class SolrConfig {
     query.setParam("hl.fl", FIELD_TEXT_SPANISH, FIELD_TEXT_ENGLISH);
 
     // Spellcheck
-    query.setParam("spellcheck.dictionary", DICTIONARY_SPANISH.getName());
+    query.setParam("spellcheck.dictionary", SupportedDictionary.SPANISH.getName());
 
+    return query;
+  }
+
+  @Bean
+  @Qualifier("facet")
+  public SolrQuery facetSolrQuery() {
+    SolrQuery query = createSolrQueryWithBaseParams();
+    query.setParam("facet", "true");
+    query.setParam("facet.mincount", "0");
+    query.addFacetField(DOCUMENT_TYPE_FF_EX_WITH_TAG, LANGUAGE_FF_WITH_EX_TAG);
+    query.setParam("fl", "score");
+    query.setParam("q", "*:*");
+    return query;
+  }
+
+  private SolrQuery createSolrQueryWithBaseParams() {
+    SolrQuery query = new SolrQuery();
+    query.setRequestHandler("/select");
+    query.setParam("wt", "json");
     return query;
   }
 

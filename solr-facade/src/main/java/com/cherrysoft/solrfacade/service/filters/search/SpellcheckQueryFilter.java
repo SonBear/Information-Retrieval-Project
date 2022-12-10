@@ -1,6 +1,7 @@
-package com.cherrysoft.solrfacade.service.filters;
+package com.cherrysoft.solrfacade.service.filters.search;
 
 import com.cherrysoft.solrfacade.model.SearchResult;
+import com.cherrysoft.solrfacade.service.filters.QueryFilter;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class SpellcheckQueryFilter extends QueryFilter {
+public class SpellcheckQueryFilter extends QueryFilter<SearchResult> {
 
   public SpellcheckQueryFilter(QueryResponse response) {
     super(response);

@@ -1,20 +1,19 @@
 package com.cherrysoft.solrfacade.service.pipes;
 
-import com.cherrysoft.solrfacade.model.SearchResult;
 import com.cherrysoft.solrfacade.service.filters.QueryFilter;
 
 import static java.util.Objects.nonNull;
 
-public class QueryPipe {
-  private QueryFilter filter;
+public class QueryPipe<T> {
+  private QueryFilter<T> filter;
 
-  public void send(SearchResult payload) {
+  public void send(T payload) {
     if (nonNull(filter)) {
       filter.processQueryResult(payload);
     }
   }
 
-  public void setFilter(QueryFilter filter) {
+  public void setFilter(QueryFilter<T> filter) {
     this.filter = filter;
   }
 

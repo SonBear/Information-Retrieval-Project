@@ -1,6 +1,6 @@
 package com.cherrysoft.solrfacade.util;
 
-public final class Fields {
+public final class SearchFields {
   public static final String FIELD_TEXT_SPANISH = "attr_text_spanish";
   public static final String FIELD_TEXT_ENGLISH = "attr_text_english";
   public static final String FIELD_TITLE = "title";

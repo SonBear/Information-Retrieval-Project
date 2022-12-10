@@ -12,9 +12,9 @@ public abstract class SearchResultMapper {
   private RecoveredDocumentMapper recoveredDocumentMapper;
 
   public SearchResultDTO toDto(SearchResult result) {
-    var webPageDocumentDtoList = recoveredDocumentMapper.toDtoList(result.getRecoveredDocuments());
+    var recoveredDocumentDtoList = recoveredDocumentMapper.toDtoList(result.getRecoveredDocuments());
     return SearchResultDTO.builder()
-        .documents(webPageDocumentDtoList)
+        .documents(recoveredDocumentDtoList)
         .hlSnippets(Collections.unmodifiableList(result.getHighlightSnippets()))
         .spellcheckResult(spellcheckResultDto(result.getSpellcheckResult()))
         .build();
@@ -28,7 +28,7 @@ public abstract class SearchResultMapper {
   }
 
   @Autowired
-  public void setWebPageDocumentMapper(RecoveredDocumentMapper mapper) {
+  public void setRecoveredDocumentMapper(RecoveredDocumentMapper mapper) {
     this.recoveredDocumentMapper = mapper;
   }
 

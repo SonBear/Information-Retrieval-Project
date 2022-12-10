@@ -1,6 +1,7 @@
-package com.cherrysoft.solrfacade.service.filters;
+package com.cherrysoft.solrfacade.service.filters.search;
 
 import com.cherrysoft.solrfacade.model.SearchResult;
+import com.cherrysoft.solrfacade.service.filters.QueryFilter;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
 import java.util.Collection;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 
-public class HighlightQueryFilter extends QueryFilter {
+public class HighlightQueryFilter extends QueryFilter<SearchResult> {
 
   public HighlightQueryFilter(QueryResponse response) {
     super(response);

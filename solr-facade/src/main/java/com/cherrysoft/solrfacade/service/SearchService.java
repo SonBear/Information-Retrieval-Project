@@ -1,7 +1,9 @@
 package com.cherrysoft.solrfacade.service;
 
-import com.cherrysoft.solrfacade.model.SearchSpec;
 import com.cherrysoft.solrfacade.model.SearchResult;
+import com.cherrysoft.solrfacade.model.SearchSpec;
+import com.cherrysoft.solrfacade.model.SupportedFacetField;
+import com.cherrysoft.solrfacade.service.processors.SearchResultProcessor;
 import lombok.RequiredArgsConstructor;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -22,7 +24,7 @@ public class SearchService {
     this.searchSpec = searchSpec;
     try {
       QueryResponse response = tryGetSearchResponse();
-      return processResultFrom(response);
+      return SearchResultProcessor.processResult(response);
     } catch (SolrServerException | IOException e) {
       e.printStackTrace();
       return SearchResult.EMPTY;
@@ -30,13 +32,23 @@ public class SearchService {
   }
 
   private QueryResponse tryGetSearchResponse() throws SolrServerException, IOException {
-    solrQuery.setQuery(searchSpec.getQuery());
-    solrQuery.setParam("spellcheck.dictionary", searchSpec.getDictionary());
+    prepareSearchQuery();
+    prepareFilterQueries();
     return solrClient.query(solrQuery);
   }
 
-  private SearchResult processResultFrom(QueryResponse response) {
-    return SearchResultProcessor.processResult(response);
+  private void prepareSearchQuery() {
+    solrQuery.setQuery(searchSpec.getQuery());
+    solrQuery.setParam("spellcheck.dictionary", searchSpec.getDictionary());
+  }
+
+  private void prepareFilterQueries() {
+    var fqDocumentType = searchSpec.getFacetFqField(SupportedFacetField.DOCUMENT_TYPE);
+    var fqLanguage = searchSpec.getFacetFqField(SupportedFacetField.LANGUAGE);
+    solrQuery.setFilterQueries(
+        fqDocumentType.getAsStringWithValuesJoinedBySpaces(),
+        fqLanguage.getAsStringWithValuesJoinedBySpaces()
+    );
   }
 
 }
