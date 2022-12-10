@@ -15,26 +15,14 @@ public class FacetResult {
   private final List<FacetedItem> documentType;
   private final List<FacetedItem> language;
 
-  private enum SupportedFacets {
-    DOCUMENT_TYPE("document_type"),
-    LANGUAGE("language");
-
-    public final String value;
-
-    SupportedFacets(String value) {
-      this.value = value;
-    }
-
-  }
-
   public FacetResult() {
     this.documentType = new ArrayList<>();
     this.language = new ArrayList<>();
   }
 
   public void extractFacetsFrom(Map<String, List<FacetedItem>> facets) {
-    addDocumentTypeItems(facets.get(SupportedFacets.DOCUMENT_TYPE.value));
-    addLanguageItems(facets.get(SupportedFacets.LANGUAGE.value));
+    addDocumentTypeItems(facets.get(SupportedFacetField.DOCUMENT_TYPE.fieldName));
+    addLanguageItems(facets.get(SupportedFacetField.LANGUAGE.fieldName));
   }
 
   private void addDocumentTypeItems(List<FacetedItem> items) {
