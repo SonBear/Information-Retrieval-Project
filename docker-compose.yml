@@ -70,4 +70,4 @@ services:
       - "8983:8983"
     volumes:
       - ./solr-data/plugins:/opt/solr/plugins
-      - ./solr-data/sample_core:/var/solr/data/sample_core
+      - ./solr-data/briw_core:/var/solr/data/briw_core
