@@ -1,12 +1,10 @@
 package com.cherrysoft.solrfacade.model;
 
+import com.cherrysoft.solrfacade.util.SupportedDictionary;
 import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
-
-import static com.cherrysoft.solrfacade.util.DictionaryConstants.AVAILABLE_DICTIONARIES;
-import static com.cherrysoft.solrfacade.util.DictionaryConstants.DICTIONARY_SPANISH;
 
 @Getter
 public class SearchSpec extends ParamSpec {
@@ -18,11 +16,11 @@ public class SearchSpec extends ParamSpec {
   }
 
   public String getDictionary() {
-    List<String> dictionary = params.getOrDefault("dictionary", List.of(DICTIONARY_SPANISH.getAlias()));
+    List<String> dictionary = params.getOrDefault("dictionary", List.of(SupportedDictionary.SPANISH.getAlias()));
     if (!dictionary.isEmpty()) {
-      return AVAILABLE_DICTIONARIES.get(dictionary.get(0));
+      return SupportedDictionary.getNameOf(dictionary.get(0));
     }
-    return DICTIONARY_SPANISH.getAlias();
+    return SupportedDictionary.SPANISH.getName();
   }
 
 }

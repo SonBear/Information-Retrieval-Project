@@ -1,5 +1,6 @@
 package com.cherrysoft.solrfacade.config;
 
+import com.cherrysoft.solrfacade.util.SupportedDictionary;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import static com.cherrysoft.solrfacade.util.DictionaryConstants.DICTIONARY_SPANISH;
 import static com.cherrysoft.solrfacade.util.FacetFields.DOCUMENT_TYPE_FF_EX_WITH_TAG;
 import static com.cherrysoft.solrfacade.util.FacetFields.LANGUAGE_FF_WITH_EX_TAG;
 import static com.cherrysoft.solrfacade.util.SearchFields.FIELD_TEXT_ENGLISH;
@@ -42,7 +42,7 @@ public class SolrConfig {
     query.setParam("hl.fl", FIELD_TEXT_SPANISH, FIELD_TEXT_ENGLISH);
 
     // Spellcheck
-    query.setParam("spellcheck.dictionary", DICTIONARY_SPANISH.getName());
+    query.setParam("spellcheck.dictionary", SupportedDictionary.SPANISH.getName());
 
     return query;
   }
