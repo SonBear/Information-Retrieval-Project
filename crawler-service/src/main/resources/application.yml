@@ -1,5 +1,5 @@
 solr:
-  baseUrl: http://solr-server:8983/solr/sample_core
+  baseUrl: http://solr-server:8983/solr/briw_core
 
 server:
   port: 8092
