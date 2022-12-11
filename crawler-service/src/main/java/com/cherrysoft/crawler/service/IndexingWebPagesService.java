@@ -30,6 +30,10 @@ public class IndexingWebPagesService {
     return indexUrls(urlSetToReindex);
   }
 
+  public WebPageUrlSet getIndexedUrls() {
+    return urlRepository.getSavedUrls();
+  }
+
   public WebPageUrlSet deleteUrls(WebPageUrlSet urlSetToDelete) {
     webPageUpdaterService.deleteWebPages(urlSetToDelete);
     return urlRepository.deleteUrls(urlSetToDelete);
