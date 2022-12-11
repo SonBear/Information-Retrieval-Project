@@ -4,6 +4,7 @@ import com.cherrysoft.solrfacade.util.TextUtils;
 import lombok.Getter;
 import org.apache.solr.client.solrj.beans.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cherrysoft.solrfacade.util.SearchFields.*;
@@ -11,6 +12,7 @@ import static java.util.Objects.isNull;
 
 @Getter
 public class RecoveredDocument {
+  @Field private String id;
   private String textSpanish;
   private String textEnglish;
   private String title;
@@ -18,6 +20,11 @@ public class RecoveredDocument {
   private String contentType;
   @Field private String language;
   @Field private float score;
+  private final List<String> highlightSnippets;
+
+  public RecoveredDocument() {
+    this.highlightSnippets = new ArrayList<>();
+  }
 
   @Field(FIELD_TEXT_ENGLISH)
   void setTextEnglish(List<String> englishField) {
@@ -42,6 +49,14 @@ public class RecoveredDocument {
   @Field(FIELD_CONTENT_TYPE)
   void setContentType(List<String> contentTypeField) {
     this.contentType = extractText(contentTypeField);
+  }
+
+  public void addHighlightSnippets(List<String> snippets) {
+    snippets.forEach(this::addHighlightSnippet);
+  }
+
+  private void addHighlightSnippet(String snippet) {
+    highlightSnippets.add(TextUtils.cleanText(snippet));
   }
 
   private String extractText(List<String> field) {

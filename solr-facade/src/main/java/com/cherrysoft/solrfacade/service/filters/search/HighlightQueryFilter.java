@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 public class HighlightQueryFilter extends QueryFilter<SearchResult> {
 
@@ -18,15 +19,27 @@ public class HighlightQueryFilter extends QueryFilter<SearchResult> {
 
   @Override
   public void processQueryResult(SearchResult payload) {
-    payload.addHighlightSnippets(getHighlightSnippets());
+    enrichDocumentsWithHighlightSnippets(payload);
     super.processQueryResult(payload);
   }
 
-  private List<String> getHighlightSnippets() {
-    return response.getHighlighting()
-        .values().stream()
-        .map(Map::values)
-        .flatMap(Collection::stream)
+  private void enrichDocumentsWithHighlightSnippets(SearchResult payload) {
+    var snippetsPerDocument = getHighlightSnippetsPerDocument();
+    payload.getRecoveredDocuments().forEach(document -> {
+      List<String> documentSnippets = snippetsPerDocument.get(document.getId());
+      document.addHighlightSnippets(documentSnippets);
+    });
+  }
+
+  private Map<String, List<String>> getHighlightSnippetsPerDocument() {
+    return response.getHighlighting().entrySet().stream()
+        .collect(
+            toMap(Map.Entry::getKey, e -> flatMapValuesToSingleList(e.getValue()))
+        );
+  }
+
+  private List<String> flatMapValuesToSingleList(Map<String, List<String>> map) {
+    return map.values().stream()
         .flatMap(Collection::stream)
         .collect(toList());
   }
