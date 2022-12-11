@@ -4,7 +4,7 @@ import { SearchResult } from '../../models/search/SearchResult';
 import { useSearchParams } from 'react-router-dom';
 
 export const useDocumentSearch = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<SearchResult>();
   const query = searchParams.get('query');
@@ -12,6 +12,10 @@ export const useDocumentSearch = () => {
   useEffect(() => {
     if (query) {
       handleSearch(query);
+    } else {
+      searchParams.delete('query');
+      setSearchParams(searchParams);
+      setSearchResult(undefined);
     }
   }, [query]);
 
