@@ -10,7 +10,6 @@ import java.util.List;
 public class SearchResultDTO {
   private final List<RecoveredDocumentDTO> documents;
   private final SpellcheckResultDTO spellcheckResult;
-  private final List<String> hlSnippets;
 
   @Data
   @Builder
