@@ -1,11 +1,23 @@
-import React from 'react';
 import './App.css';
-import {PingPanel} from './components/PingPanel';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { DocumentSearch } from './pages/DocumentSearch';
+import { IndexingURLS } from './pages/IndexingURLS';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <DocumentSearch />,
+  },
+  {
+    path: '/index',
+    element: <IndexingURLS />,
+  },
+]);
 
 function App() {
   return (
     <div>
-      <PingPanel/>
+      <RouterProvider router={router} />
     </div>
   );
 }
