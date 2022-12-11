@@ -9,6 +9,7 @@ export const DocumentSearch = () => {
   return (
     <div>
       <Link to="/index">Index web pages</Link>
+      <FacetPanel />
       <SearchPanel />
       <DocumentResultList
         loading={loading}

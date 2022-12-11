@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { appendQueryParams } from '../../../../utils/query-params';
 
 export const SearchPanel = () => {
   const navigate = useNavigate();
@@ -12,7 +13,8 @@ export const SearchPanel = () => {
   };
 
   const onSearchClicked = () => {
-    navigate(`/?query=${query}`);
+    searchParams.set('query', query);
+    navigate(appendQueryParams('/', searchParams.toString()));
   };
 
   return (
