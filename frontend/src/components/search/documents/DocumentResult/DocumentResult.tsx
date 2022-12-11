@@ -1,4 +1,4 @@
-import { RetrievedDocument } from '../../../models/search/RetrievedDocument';
+import { RetrievedDocument } from '../../../../models/search/documents/RetrievedDocument';
 
 export interface DocumentResultProps {
   document: RetrievedDocument;
