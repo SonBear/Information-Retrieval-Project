@@ -6,6 +6,15 @@ eureka:
     serviceUrl:
       defaultZone: http://spring-server-registry:8081/eureka
 
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+
 spring:
   application:
     name: gateway-service
@@ -32,3 +41,16 @@ spring:
             - Path=/facade/**
           filters:
             - RewritePath=/facade,/
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTION
+              - HEAD
