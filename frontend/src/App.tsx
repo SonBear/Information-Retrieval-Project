@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { DocumentSearch } from './pages/DocumentSearch';
-import { IndexingURLS } from './pages/IndexingURLS';
+import { IndexingUrls } from './pages/IndexingUrls';
 
 const router = createBrowserRouter([
   {
@@ -10,13 +10,13 @@ const router = createBrowserRouter([
   },
   {
     path: '/index',
-    element: <IndexingURLS />,
+    element: <IndexingUrls />,
   },
 ]);
 
 function App() {
   return (
-    <div>
+    <div style={{ backgroundColor: '#2C2C2C', height: '100vh' }}>
       <RouterProvider router={router} />
     </div>
   );

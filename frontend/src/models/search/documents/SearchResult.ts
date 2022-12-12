@@ -1,4 +1,4 @@
-import { RetrievedDocument } from './RetrievedDocument';
+import { RetrievedDocument } from '../RetrievedDocument';
 import { SpellcheckResult } from '../spellcheck/SpellcheckResult';
 
 export interface SearchResult {
