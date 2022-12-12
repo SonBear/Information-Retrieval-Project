@@ -37,7 +37,15 @@ export const RetrievedDocumentCard = ({ document }: DocumentResultProps) => {
       <Card.Body>
         <If condition={document.url}>
           <Then>
-            <Card.Title>{document.url}</Card.Title>
+            <Card.Title>
+              <a
+                role="button"
+                className="link-primary"
+                href={document.url}
+                target="_blank">
+                {document.url}
+              </a>
+            </Card.Title>
           </Then>
           <Else>
             <Card.Title>{extractText(document)}</Card.Title>
