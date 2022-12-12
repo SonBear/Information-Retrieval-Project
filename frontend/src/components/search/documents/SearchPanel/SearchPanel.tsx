@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { appendQueryParams } from '../../../../utils/query-params';
-import {
-  Button,
-  Form,
-  FormControlProps,
-  InputGroup,
-  ListGroup,
-} from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
+import { SuggestionList } from '../../suggestion';
+import { useSuggestions } from '../../../../lib/hooks/useSuggestions';
 
 export const SearchPanel = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState('');
-  const [suggesstions, setSuggestions] = useState(['soy una sugerencia']);
+  const { suggestionResult, handleSearchQueryChanged, clearSuggestions } =
+    useSuggestions();
 
   useEffect(() => {
     const q = searchParams.get('query') || '';
@@ -23,6 +20,7 @@ export const SearchPanel = () => {
   const onQueryChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setQuery(newValue);
+    handleSearchQueryChanged(newValue);
   };
 
   const onSearchClicked = () => {
@@ -35,26 +33,9 @@ export const SearchPanel = () => {
     }
   };
 
-  const suggestionStyle = {
-    width: '100%',
-    Position: 'absolute',
-    cursor: 'pointer',
-  };
-  const createSuugestions = (suggestions: any) => {
-    return (
-      <ListGroup style={suggestionStyle}>
-        {suggestions.map((a: any) => {
-          return (
-            <ListGroup.Item onClick={onClickSuggestion}>{a}</ListGroup.Item>
-          );
-        })}
-      </ListGroup>
-    );
-  };
-
-  const onClickSuggestion = (event: any) => {
-    setQuery(event.target.firstChild.data);
-    setSuggestions([]);
+  const onSuggestionClicked = (suggestion: string) => {
+    setQuery(suggestion);
+    clearSuggestions();
   };
 
   const doSearch = () => {
@@ -72,7 +53,10 @@ export const SearchPanel = () => {
           onChange={onQueryChanged}
           onKeyDown={onKeyDown}
         />
-        {suggesstions.length > 0 && createSuugestions(suggesstions)}
+        <SuggestionList
+          onSuggestionClicked={onSuggestionClicked}
+          suggestionResult={suggestionResult}
+        />
         <Button variant="outline-secondary" onClick={onSearchClicked}>
           Search
         </Button>

@@ -11,8 +11,7 @@ import org.springframework.context.annotation.Primary;
 
 import static com.cherrysoft.solrfacade.util.FacetFields.DOCUMENT_TYPE_FF_EX_WITH_TAG;
 import static com.cherrysoft.solrfacade.util.FacetFields.LANGUAGE_FF_WITH_EX_TAG;
-import static com.cherrysoft.solrfacade.util.SearchFields.FIELD_TEXT_ENGLISH;
-import static com.cherrysoft.solrfacade.util.SearchFields.FIELD_TEXT_SPANISH;
+import static com.cherrysoft.solrfacade.util.SearchFields.*;
 
 @Configuration
 public class SolrConfig {
@@ -33,7 +32,7 @@ public class SolrConfig {
   public SolrQuery searchSolrQuery() {
     SolrQuery query = createSolrQueryWithBaseParams();
     query.setParam("defType", "edismax");
-    query.setParam("qf", FIELD_TEXT_SPANISH + " " + FIELD_TEXT_ENGLISH);
+    query.setParam("qf", FIELD_TEXT_SPANISH + " " + FIELD_TEXT_ENGLISH + " " + FIELD_TITLE);
     query.setParam("fl", "*", "score");
 
     // Highlighting
