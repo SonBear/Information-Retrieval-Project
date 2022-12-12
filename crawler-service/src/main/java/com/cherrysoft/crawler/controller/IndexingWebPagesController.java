@@ -9,10 +9,7 @@ import com.cherrysoft.crawler.model.WebPageUrlSet;
 import com.cherrysoft.crawler.service.IndexingWebPagesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -43,7 +40,7 @@ public class IndexingWebPagesController {
     return ResponseEntity.ok(urlSetMapper.toWebPageUrlSetDto(urlSet));
   }
 
-  @PostMapping("/urls")
+  @DeleteMapping("/urls")
   public ResponseEntity<WebPageUrlSetDTO> deleteUrls(@RequestBody @Valid WebPageUrlSetDTO urlSetDtoToDelete) {
     WebPageUrlSet urlSetToDelete = urlSetMapper.toWebPageUrlSet(urlSetDtoToDelete);
     WebPageUrlSet result = indexingWebPagesService.deleteUrls(urlSetToDelete);
