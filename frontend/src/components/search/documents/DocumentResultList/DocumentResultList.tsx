@@ -1,5 +1,5 @@
-import { RetrievedDocument } from '../../../../models/search/documents/RetrievedDocument';
 import { DocumentResult } from '../DocumentResult';
+import { RetrievedDocument } from '../../../../models/search/RetrievedDocument';
 
 export interface DocumentResultListProps {
   loading?: boolean;
