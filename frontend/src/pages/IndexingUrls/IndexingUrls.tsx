@@ -4,11 +4,13 @@ import {
   IndexingStatus,
   useIndexingUrls,
 } from '../../lib/hooks/useIndexingUrls';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { IndexingResultStatusPanel } from '../../components/indexing-urls/IndexingResultStatusPanel';
 import { Container, Stack } from 'react-bootstrap';
+import { appendQueryParams } from '../../utils/query-params';
 
 export const IndexingUrls = () => {
+  const [searchParams] = useSearchParams();
   const {
     urls,
     lastIndexingResult,
@@ -27,7 +29,9 @@ export const IndexingUrls = () => {
   return (
     <Container className="m-auto text-center">
       <Stack className="w-75 mx-auto" gap={3}>
-        <Link to="/">Go back</Link>
+        <Link to={appendQueryParams('/', searchParams.toString())}>
+          Go back
+        </Link>
         <h1 className="text-capitalize">Insert urls</h1>
         <UrlListing urls={urls} onUrlListChanged={setUrls} />
         <IndexingOptions

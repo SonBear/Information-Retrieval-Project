@@ -1,5 +1,6 @@
 import { FacetItem } from '../../../../models/search/facet/FacetItem';
 import React, { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
 
 export interface SelectableFacetItemProps {
   facetItem: FacetItem;
@@ -25,11 +26,12 @@ export const SelectableFacetItem = ({
   };
 
   return (
-    <div>
-      <input type="checkbox" checked={checked} onChange={onCheckboxClicked} />
-      <label>
-        {facetItem.classifier} ({facetItem.count})
-      </label>
-    </div>
+    <Form.Check
+      role="button"
+      checked={checked}
+      id={facetItem.classifier}
+      label={`${facetItem.classifier} (${facetItem.count})`}
+      onChange={onCheckboxClicked}
+    />
   );
 };

@@ -1,10 +1,16 @@
 import React from 'react';
 import { Then, When } from 'react-if';
 import { useIndexingDocument } from '../../../lib/hooks/useIndexingDocument';
+import { Button, Stack } from 'react-bootstrap';
 
 export const IndexingDocumentPanel = () => {
-  const { filesInputRef, filesToUpload, handleFilesChosen, handleUploadFiles } =
-    useIndexingDocument();
+  const {
+    filesInputRef,
+    filesToUpload,
+    handleFilesChosen,
+    handleUploadFiles,
+    handleClearChosenFiles,
+  } = useIndexingDocument();
 
   const onFilesChosen = (e: React.ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files) as File[];
@@ -13,15 +19,25 @@ export const IndexingDocumentPanel = () => {
 
   return (
     <div>
-      <input
-        ref={filesInputRef}
-        type="file"
-        multiple
-        onChange={onFilesChosen}
-      />
+      <div className="mb-3">
+        <input
+          ref={filesInputRef}
+          className="form-control"
+          type="file"
+          multiple
+          onChange={onFilesChosen}
+        />
+      </div>
       <When condition={filesToUpload.length > 0}>
         <Then>
-          <button onClick={handleUploadFiles}>Upload selected files</button>
+          <Stack direction="horizontal" gap={2} className="justify-content-end">
+            <Button variant="outline-secondary" onClick={handleUploadFiles}>
+              Index documents
+            </Button>
+            <Button variant="outline-danger" onClick={handleClearChosenFiles}>
+              Clear
+            </Button>
+          </Stack>
         </Then>
       </When>
     </div>

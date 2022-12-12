@@ -1,4 +1,5 @@
 export interface RetrievedDocument {
+  id: string;
   title?: string;
   url?: string;
   language: string;
@@ -6,4 +7,5 @@ export interface RetrievedDocument {
   textSpanish?: string;
   contentType: string;
   score: number;
+  highlightSnippets: string[];
 }

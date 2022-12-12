@@ -11,10 +11,14 @@ export const useIndexingDocument = () => {
 
   const handleUploadFiles = () => {
     return indexDocuments(filesToUpload).then(() => {
-      setFilesToUpload([]);
-      // @ts-ignore
-      filesInputRef.current.value = null;
+      handleClearChosenFiles();
     });
+  };
+
+  const handleClearChosenFiles = () => {
+    setFilesToUpload([]);
+    // @ts-ignore
+    filesInputRef.current.value = null;
   };
 
   return {
@@ -22,5 +26,6 @@ export const useIndexingDocument = () => {
     filesInputRef,
     handleFilesChosen,
     handleUploadFiles,
+    handleClearChosenFiles,
   };
 };

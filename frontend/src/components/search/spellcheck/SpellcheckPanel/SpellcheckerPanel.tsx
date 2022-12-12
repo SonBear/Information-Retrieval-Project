@@ -2,6 +2,8 @@ import { SpellcheckResult } from '../../../../models/search/spellcheck/Spellchec
 import { appendQueryParams } from '../../../../utils/query-params';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LanguagePreferenceSelector } from '../LanguagePreferenceSelector';
+import { Stack } from 'react-bootstrap';
+import { When } from 'react-if';
 
 export interface SpellcheckerPanelProps {
   spellcheckResult?: SpellcheckResult;
@@ -35,21 +37,30 @@ export const SpellcheckerPanel = ({
   }
 
   return (
-    <div>
+    <>
       <LanguagePreferenceSelector />
       {hasSpellcheckResult(spellcheckResult) && (
-        <>
+        <div className="fs-5">
           <div>Did you mean?</div>
-          {bestSuggestions.map((bestSuggestion, index) => (
-            <p
-              key={index}
-              onClick={() => onReplaceForSuggestion(bestSuggestion)}>
-              {bestSuggestion}
-            </p>
-          ))}
-          <pre>{JSON.stringify(spellcheckResult, null, 2)}</pre>
-        </>
+          <Stack direction="horizontal" gap={3}>
+            {bestSuggestions.map((bestSuggestion, index) => (
+              <>
+                <p
+                  role="button"
+                  className="fst-italic link-primary"
+                  key={index}
+                  onClick={() => onReplaceForSuggestion(bestSuggestion)}>
+                  {bestSuggestion}
+                </p>
+                {/* Don't show separator if its last element */}
+                <When condition={index !== bestSuggestions.length - 1}>
+                  <p>/</p>
+                </When>
+              </>
+            ))}
+          </Stack>
+        </div>
       )}
-    </div>
+    </>
   );
 };

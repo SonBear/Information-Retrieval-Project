@@ -1,6 +1,7 @@
 import { FacetItem } from '../../../../models/search/facet/FacetItem';
 import { SelectableFacetItem } from '../SelectableFacetItem';
 import { useFacetGroup } from '../../../../lib/hooks/useFacetGroup';
+import { Form, Stack } from 'react-bootstrap';
 
 export interface FacetGroupProps {
   facetGroupLabel: string;
@@ -25,16 +26,18 @@ export const FacetGroup = ({
   };
 
   return (
-    <div>
-      <p>{facetGroupLabel}</p>
-      {sortFacetItemsByClassifier().map((facetItem, index) => (
-        <SelectableFacetItem
-          key={index}
-          facetItem={facetItem}
-          selected={isFacetItemSelected(facetItem)}
-          onStateChanged={handleFacetItemStateChanged}
-        />
-      ))}
-    </div>
+    <Stack>
+      <p className="fw-bold fs-5">{facetGroupLabel}</p>
+      <Form>
+        {sortFacetItemsByClassifier().map((facetItem, index) => (
+          <SelectableFacetItem
+            key={index}
+            facetItem={facetItem}
+            selected={isFacetItemSelected(facetItem)}
+            onStateChanged={handleFacetItemStateChanged}
+          />
+        ))}
+      </Form>
+    </Stack>
   );
 };
