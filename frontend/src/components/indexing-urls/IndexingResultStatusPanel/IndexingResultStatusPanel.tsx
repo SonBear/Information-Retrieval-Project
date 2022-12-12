@@ -14,5 +14,53 @@ export const IndexingResultStatusPanel = ({
     return null;
   }
 
-  return <pre>{JSON.stringify(indexingResult, null, 2)}</pre>;
+  return (
+    <Stack gap={3} className="mt-3">
+      <IndexingUrlsListResultAlert
+        variant="success"
+        alertHeading="Successfully indexed"
+        urlList={indexingResult.successfullyIndexedUrlSet}
+      />
+      <IndexingUrlsListResultAlert
+        variant="danger"
+        alertHeading="Failed indexing"
+        urlList={indexingResult.failedToIndexUrlSet}
+      />
+      <IndexingUrlsListResultAlert
+        variant="secondary"
+        alertHeading="Already indexed"
+        urlList={indexingResult.alreadyIndexedUrlSet}
+      />
+    </Stack>
+  );
+};
+
+interface IndexingUrlsListResultAlertProps extends AlertProps {
+  alertHeading: string;
+  urlList: UrlList;
+}
+
+const IndexingUrlsListResultAlert = ({
+  alertHeading,
+  urlList,
+  ...rest
+}: IndexingUrlsListResultAlertProps) => {
+  if (!urlList) {
+    return null;
+  }
+
+  return (
+    <When condition={urlList.urls.length}>
+      <Alert {...rest}>
+        <Alert.Heading className="text-capitalize">
+          {alertHeading}
+        </Alert.Heading>
+        <ul className="text-start">
+          {urlList.urls.map(url => (
+            <li>{url}</li>
+          ))}
+        </ul>
+      </Alert>
+    </When>
+  );
 };

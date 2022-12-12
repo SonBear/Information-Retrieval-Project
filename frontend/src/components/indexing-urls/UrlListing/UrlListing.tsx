@@ -10,7 +10,7 @@ export interface URLListProps {
   onUrlListChanged?: (newUrls: string[]) => void;
 }
 
-export const URLListing = ({
+export const UrlListing = ({
   urls = [],
   onUrlListChanged = () => {},
 }: URLListProps) => {
@@ -26,7 +26,7 @@ export const URLListing = ({
     <textarea
       value={textValue}
       onChange={onTextFieldChanged}
-      rows={30}
-      cols={100}></textarea>
+      rows={15}
+      cols={80}></textarea>
   );
 };
