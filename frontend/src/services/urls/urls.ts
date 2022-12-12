@@ -1,19 +1,9 @@
 import { api } from '../http';
-
-export interface URLList {
-  urls: string[];
-}
-
-export interface IndexingResultStatus {
-  payload: URLList;
-  nonIndexedUrlSet: URLList;
-  failedToIndexUrlSet: URLList;
-  successfullyIndexedUrlSet: URLList;
-  alreadyIndexedUrlSet: URLList;
-}
+import { UrlList } from '../../models/indexing-urls/UrlList';
+import { IndexingResultStatus } from '../../models/indexing-urls/IndexingResultStatus';
 
 export const getIndexedUrls = async () => {
-  const indexedUrls = await api.get<URLList>('/crawler/urls');
+  const indexedUrls = await api.get<UrlList>('/crawler/urls');
   return indexedUrls.urls;
 };
 

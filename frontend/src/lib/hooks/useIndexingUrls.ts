@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import {
   deleteUrls,
   getIndexedUrls,
-  IndexingResultStatus,
   indexUrls,
   reindexUrls,
 } from '../../services/urls/urls';
+import { IndexingResultStatus } from '../../models/indexing-urls/IndexingResultStatus';
 
 export const useIndexingURLS = () => {
   const [loading, setLoading] = useState(true);
