@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { appendQueryParams } from '../../../../utils/query-params';
 
 export const SearchPanel = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get('query') || '');
+  const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    const q = searchParams.get('query') || '';
+    setQuery(q);
+  }, [searchParams]);
 
   const onQueryChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
