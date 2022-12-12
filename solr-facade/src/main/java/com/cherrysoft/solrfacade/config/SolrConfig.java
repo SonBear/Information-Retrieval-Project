@@ -59,6 +59,14 @@ public class SolrConfig {
     return query;
   }
 
+  @Bean
+  @Qualifier("suggest")
+  public SolrQuery suggestSolrQuery() {
+    SolrQuery query = createSolrQueryWithBaseParams();
+    query.setRequestHandler("/suggest");
+    return query;
+  }
+
   private SolrQuery createSolrQueryWithBaseParams() {
     SolrQuery query = new SolrQuery();
     query.setRequestHandler("/select");

@@ -1,5 +1,6 @@
+import { RetrievedDocumentCard } from '../RetrievedDocumentCard';
 import { RetrievedDocument } from '../../../../models/search/documents/RetrievedDocument';
-import { DocumentResult } from '../DocumentResult';
+import { Stack } from 'react-bootstrap';
 
 export interface DocumentResultListProps {
   loading?: boolean;
@@ -19,14 +20,15 @@ export const DocumentResultList = ({
   }
 
   if (documents.length === 0) {
-    return <div>No results :(</div>;
+    return <div className="display-4">No results :(</div>;
   }
 
   return (
-    <div>
+    <Stack gap={3}>
+      <div className="fs-4">Total results: {documents.length}</div>
       {documents.map((doc, index) => (
-        <DocumentResult key={index} document={doc} />
+        <RetrievedDocumentCard key={doc.id} document={doc} />
       ))}
-    </div>
+    </Stack>
   );
 };

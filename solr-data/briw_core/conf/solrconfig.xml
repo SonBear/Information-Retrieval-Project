@@ -1038,7 +1038,7 @@
   </requestHandler>
 
   <!-- Suggesters -->
-  <searchComponent name="suggester" class="solr.SpellCheckComponent">
+  <!--searchComponent name="suggester" class="solr.SpellCheckComponent">
     <lst name="spellchecker">
       <str name="name">suggest_dictionary_es</str>
       <str name="suggestAnalyzerFieldType">suggest_es</str>
@@ -1060,6 +1060,18 @@
       <float name="thresholdTokenFrequency">0.0001</float>
       <str name="buildOnCommit">true</str>
     </lst>
+  </searchComponent-->
+
+  <searchComponent name="suggest" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">mySuggester</str>
+      <str name="lookupImpl">FuzzyLookupFactory</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">title</str>
+      <str name="weightField">score</str>
+      <str name="suggestAnalyzerFieldType">string</str>
+      <str name="buildOnStartup">false</str>
+    </lst>
   </searchComponent>
 
   <requestHandler name="/suggest"
@@ -1067,13 +1079,16 @@
     <lst name="defaults">
       <str name="echoParams">none</str>
       <str name="spellcheck">true</str>
-      <str name="spellcheck.dictionary">suggest_dictionary_es</str>
+      <str name="spellcheck.dictionary">suggest</str>
       <str name="spellcheck.onlyMorePopular">true</str>
       <str name="spellcheck.count">5</str>
       <str name="spellcheck.collate">true</str>
+      <str name="suggest">true</str>
+      <str name="suggest.build">true</str>
+      <str name="suggest.dictionary">mySuggester</str>
     </lst>
     <arr name="components">
-      <str>suggester</str>
+      <str>suggest</str>
     </arr>
   </requestHandler>
 
@@ -1161,8 +1176,8 @@
                  default="true"
                  class="solr.highlight.HtmlFormatter">
         <lst name="defaults">
-          <str name="hl.simple.pre"><![CDATA[<em>]]></str>
-          <str name="hl.simple.post"><![CDATA[</em>]]></str>
+          <str name="hl.simple.pre"><![CDATA[<mark>]]></str>
+          <str name="hl.simple.post"><![CDATA[</mark>]]></str>
         </lst>
       </formatter>
 

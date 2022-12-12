@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { appendQueryParams } from '../../../../utils/query-params';
+import { Button, Form, FormControlProps, InputGroup } from 'react-bootstrap';
 
 export const SearchPanel = () => {
   const navigate = useNavigate();
@@ -18,18 +19,32 @@ export const SearchPanel = () => {
   };
 
   const onSearchClicked = () => {
+    doSearch();
+  };
+
+  const onKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      doSearch();
+    }
+  };
+
+  const doSearch = () => {
     searchParams.set('query', query);
     navigate(appendQueryParams('/', searchParams.toString()));
   };
 
   return (
-    <div>
-      <input
-        placeholder="Type something..."
+    <InputGroup className="mb-3">
+      <Form.Control
+        placeholder="Potato AND Chips..."
+        aria-label="Potato AND Chips..."
         value={query}
         onChange={onQueryChanged}
+        onKeyDown={onKeyDown}
       />
-      <button onClick={onSearchClicked}>Search</button>
-    </div>
+      <Button variant="outline-secondary" onClick={onSearchClicked}>
+        Search
+      </Button>
+    </InputGroup>
   );
 };

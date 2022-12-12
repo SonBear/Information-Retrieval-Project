@@ -4,11 +4,12 @@ import {
   IndexingStatus,
   useIndexingUrls,
 } from '../../lib/hooks/useIndexingUrls';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IndexingResultStatusPanel } from '../../components/indexing-urls/IndexingResultStatusPanel';
 import { Container, Stack } from 'react-bootstrap';
 
 export const IndexingUrls = () => {
+  const navigate = useNavigate();
   const {
     urls,
     lastIndexingResult,
@@ -24,10 +25,19 @@ export const IndexingUrls = () => {
     return <div>Loading...</div>;
   }
 
+  const onGoBackClicked = () => {
+    navigate(-1);
+  };
+
   return (
     <Container className="m-auto text-center">
       <Stack className="w-75 mx-auto" gap={3}>
-        <Link to="/">Go back</Link>
+        <div
+          role="button"
+          className="link-primary text-decoration-underline"
+          onClick={onGoBackClicked}>
+          Go back
+        </div>
         <h1 className="text-capitalize">Insert urls</h1>
         <UrlListing urls={urls} onUrlListChanged={setUrls} />
         <IndexingOptions

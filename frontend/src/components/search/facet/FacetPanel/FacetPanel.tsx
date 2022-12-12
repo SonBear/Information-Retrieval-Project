@@ -1,5 +1,6 @@
 import { FacetGroup } from '../FacetGroup';
 import { useFacet } from '../../../../lib/hooks/useFacet';
+import { Stack } from 'react-bootstrap';
 
 export const FacetPanel = () => {
   const { facets } = useFacet();
@@ -9,7 +10,7 @@ export const FacetPanel = () => {
   }
 
   return (
-    <div>
+    <Stack gap={3}>
       <FacetGroup
         facetGroupLabel="Document types"
         facetGroupName="documentType"
@@ -20,6 +21,6 @@ export const FacetPanel = () => {
         facetGroupName="language"
         facetItems={facets.language}
       />
-    </div>
+    </Stack>
   );
 };
