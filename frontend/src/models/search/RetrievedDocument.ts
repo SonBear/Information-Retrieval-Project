@@ -6,4 +6,5 @@ export interface RetrievedDocument {
   textSpanish?: string;
   contentType: string;
   score: number;
+  highlightSnippets?: Array<string>;
 }

@@ -19,8 +19,12 @@ export const DocumentSearch = () => {
         <Link to="/index">Index web pages</Link>
       </Row>
       <Row>
-        <SearchPanel />
-        <IndexingDocumentPanel />
+        <div
+          className="border-bottom mb-4 p-2"
+          style={{ backgroundColor: '#2C2C2C' }}>
+          <SearchPanel />
+          <IndexingDocumentPanel />
+        </div>
       </Row>
       <Row>
         <Col md={2}>

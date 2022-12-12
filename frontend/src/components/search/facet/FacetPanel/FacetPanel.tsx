@@ -11,12 +11,13 @@ export const FacetPanel = () => {
   return (
     <div>
       <FacetGroup
-        facetGroupLabel="Document types"
+        facetGroupLabel="Document types: "
         facetGroupName="documentType"
         facetItems={facets.documentType}
       />
+      <br />
       <FacetGroup
-        facetGroupLabel="Languages"
+        facetGroupLabel="Languages: "
         facetGroupName="language"
         facetItems={facets.language}
       />

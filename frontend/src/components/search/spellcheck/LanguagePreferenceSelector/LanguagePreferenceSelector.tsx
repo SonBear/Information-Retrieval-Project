@@ -1,6 +1,7 @@
 import React from 'react';
 import { SupportedLanguage } from '../../../../models/search/spellcheck/SupportedLanguage';
 import { usePreferenceLanguage } from '../../../../lib/hooks/usePreferenceLanguage';
+import { Col, Row } from 'react-bootstrap';
 
 const getSupportedLanguageValue = (language: string) => {
   return Object.values(SupportedLanguage)[
@@ -17,15 +18,22 @@ export const LanguagePreferenceSelector = () => {
   };
 
   return (
-    <div>
-      <p>Preference language:</p>
-      <select value={selectedLanguage} onChange={onLanguageChanged}>
-        {Object.keys(SupportedLanguage).map((language, index) => (
-          <option value={getSupportedLanguageValue(language)} key={index}>
-            {language}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Row className="mb-2">
+      <Col md={3}>
+        <p>Preference language:</p>
+      </Col>
+      <Col>
+        <select
+          className="bg-dark rounded pr-5 pl-5 text-white"
+          value={selectedLanguage}
+          onChange={onLanguageChanged}>
+          {Object.keys(SupportedLanguage).map((language, index) => (
+            <option value={getSupportedLanguageValue(language)} key={index}>
+              {language}
+            </option>
+          ))}
+        </select>
+      </Col>
+    </Row>
   );
 };

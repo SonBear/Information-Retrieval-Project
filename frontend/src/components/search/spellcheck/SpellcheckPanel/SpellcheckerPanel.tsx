@@ -2,6 +2,7 @@ import { SpellcheckResult } from '../../../../models/search/spellcheck/Spellchec
 import { appendQueryParams } from '../../../../utils/query-params';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LanguagePreferenceSelector } from '../LanguagePreferenceSelector';
+import { Col, Row } from 'react-bootstrap';
 
 export interface SpellcheckerPanelProps {
   spellcheckResult?: SpellcheckResult;
@@ -35,19 +36,22 @@ export const SpellcheckerPanel = ({
   }
 
   return (
-    <div>
+    <div className="mt-2">
       <LanguagePreferenceSelector />
       {hasSpellcheckResult(spellcheckResult) && (
         <>
           <div>Did you mean?</div>
-          {bestSuggestions.map((bestSuggestion, index) => (
-            <p
-              key={index}
-              onClick={() => onReplaceForSuggestion(bestSuggestion)}>
-              {bestSuggestion}
-            </p>
-          ))}
-          <pre>{JSON.stringify(spellcheckResult, null, 2)}</pre>
+          {bestSuggestions.map((bestSuggestion, index) => {
+            return (
+              <p
+                className="text-primary"
+                style={{ cursor: 'pointer' }}
+                key={index}
+                onClick={() => onReplaceForSuggestion(bestSuggestion)}>
+                {bestSuggestion}
+              </p>
+            );
+          })}
         </>
       )}
     </div>
