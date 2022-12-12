@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSearch } from '../../lib/hooks/useSearch';
 import { FacetPanel } from '../../components/search/facet/FacetPanel';
 import { SpellcheckerPanel } from '../../components/search/spellcheck/SpellcheckPanel';
+import { IndexingDocumentPanel } from '../../components/indexing-documents/IndexingDocumentPanel';
 
 export const DocumentSearch = () => {
   const { searchResult, loading } = useSearch();
@@ -11,6 +12,7 @@ export const DocumentSearch = () => {
   return (
     <div>
       <Link to="/index">Index web pages</Link>
+      <IndexingDocumentPanel />
       <FacetPanel />
       <SearchPanel />
       <SpellcheckerPanel spellcheckResult={searchResult?.spellcheckResult} />
