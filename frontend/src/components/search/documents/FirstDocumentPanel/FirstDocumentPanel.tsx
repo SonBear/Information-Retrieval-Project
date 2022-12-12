@@ -14,29 +14,19 @@ export const FirstDocumentPanel = ({
   }
 
   if (!document) {
-    return (
-      <Card bg="dark" text="white" key="Dark" className="mb-2">
-        <Card.Header>{'titulo'}</Card.Header>
-        <Card.Body>
-          <Card.Title>
-            <a href="www.google.com"> soy un rutl</a>
-          </Card.Title>
-          <Card.Text>{'testo del documento'}</Card.Text>
-        </Card.Body>
-      </Card>
-    );
+    return null;
   }
 
   return (
     <div>
-      <Card>
+      <Card bg="dark" text="white" key="Dark" className="mb-2">
         <Card.Header>{document.title}</Card.Header>
         <Card.Body>
           <Card.Title>{document.url} </Card.Title>
           <Card.Text>
             {document.language == 'es'
-              ? document.textSpanish
-              : document.textEnglish}
+              ? document.textSpanish?.slice(0, 250) + '....'
+              : document.textEnglish?.slice(0, 250) + '....'}
           </Card.Text>
         </Card.Body>
       </Card>
