@@ -1,9 +1,12 @@
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FacetItem } from '../../models/search/facet/FacetItem';
-import { joinByComma, splitByComma } from '../../utils/arrays';
+import { FacetItem } from '../../../models/search/facet/FacetItem';
+import { joinByComma, splitByComma } from '../../../utils/arrays';
 
-export const useFacetGroup = (facetGroupName: string) => {
+export const useFacetGroup = (
+  facetItems: FacetItem[],
+  facetGroupName: string,
+) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedClassifiers, setSelectedClassifiers] = useState<string[]>([]);
 
@@ -42,7 +45,12 @@ export const useFacetGroup = (facetGroupName: string) => {
     );
   };
 
+  const sortFacetItemsByClassifier = () => {
+    return facetItems.sort((a, b) => a.classifier.localeCompare(b.classifier));
+  };
+
   return {
+    sortedFacetItems: sortFacetItemsByClassifier(),
     isFacetItemSelected,
     handleFacetItemStateChanged,
   };
