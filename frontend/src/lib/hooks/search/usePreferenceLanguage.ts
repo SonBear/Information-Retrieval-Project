@@ -1,13 +1,13 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   ReverseLanguageMapping,
   SupportedLanguage,
-} from '../../models/search/spellcheck/SupportedLanguage';
-import { appendQueryParams } from '../../utils/query-params';
+} from '../../../models/search/spellcheck/SupportedLanguage';
+import { useHomeQueryParams } from '../useHomeQueryParams';
 
 export const usePreferenceLanguage = () => {
-  const navigate = useNavigate();
+  const { setQueryParam } = useHomeQueryParams();
   const [searchParams] = useSearchParams();
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(
     SupportedLanguage.Spanish,
@@ -23,8 +23,7 @@ export const usePreferenceLanguage = () => {
   }, [searchParams]);
 
   const handleLanguageChanged = (newSelectedLanguage: string) => {
-    searchParams.set('dictionary', newSelectedLanguage);
-    navigate(appendQueryParams('/', searchParams.toString()));
+    setQueryParam('dictionary', newSelectedLanguage);
   };
 
   return {

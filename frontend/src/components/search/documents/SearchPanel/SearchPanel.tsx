@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { appendQueryParams } from '../../../../utils/query-params';
+import { useSearchParams } from 'react-router-dom';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { SuggestionList } from '../../suggestion';
-import { useSuggestions } from '../../../../lib/hooks/useSuggestions';
+import { useSuggestions } from '../../../../lib/hooks/suggestion/useSuggestions';
+import { useHomeQueryParams } from '../../../../lib/hooks/useHomeQueryParams';
 
 export const SearchPanel = () => {
-  const navigate = useNavigate();
+  const { setSearchQuery } = useHomeQueryParams();
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState('');
   const { suggestionResult, handleSearchQueryChanged, clearSuggestions } =
@@ -24,23 +24,18 @@ export const SearchPanel = () => {
   };
 
   const onSearchClicked = () => {
-    doSearch();
+    setSearchQuery(query);
   };
 
   const onKeyDown = (event: any) => {
     if (event.key === 'Enter') {
-      doSearch();
+      setSearchQuery(query);
     }
   };
 
   const onSuggestionClicked = (suggestion: string) => {
-    setQuery(suggestion);
+    setSearchQuery(suggestion);
     clearSuggestions();
-  };
-
-  const doSearch = () => {
-    searchParams.set('query', query);
-    navigate(appendQueryParams('/', searchParams.toString()));
   };
 
   return (
@@ -54,8 +49,8 @@ export const SearchPanel = () => {
           onKeyDown={onKeyDown}
         />
         <SuggestionList
-          onSuggestionClicked={onSuggestionClicked}
           suggestionResult={suggestionResult}
+          onSuggestionClicked={onSuggestionClicked}
         />
         <Button variant="outline-secondary" onClick={onSearchClicked}>
           Search
