@@ -3,7 +3,7 @@ import {
   joinByBreakLine,
   removeBlankOrNullElements,
   splitByBreakLine,
-} from '../../../utils/arrays';
+} from '../../../../utils/arrays';
 
 export interface URLListProps {
   urls: string[];

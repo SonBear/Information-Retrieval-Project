@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { SupportedFacetResult } from '../../models/search/facet/SupportedFacetResult';
-import { getFacets } from '../../services/facet/facet';
+import { SupportedFacetResult } from '../../../models/search/facet/SupportedFacetResult';
+import { getFacets } from '../../../services/facet/facet';
 
 export const useFacet = () => {
   const [searchParams] = useSearchParams();

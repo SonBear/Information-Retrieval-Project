@@ -1,6 +1,6 @@
 import React from 'react';
 import { Then, When } from 'react-if';
-import { useIndexingDocument } from '../../../lib/hooks/useIndexingDocument';
+import { useIndexingDocuments } from '../../../../lib/hooks/indexing/useIndexingDocuments';
 import { Button, Stack } from 'react-bootstrap';
 
 export const IndexingDocumentPanel = () => {
@@ -10,7 +10,7 @@ export const IndexingDocumentPanel = () => {
     handleFilesChosen,
     handleUploadFiles,
     handleClearChosenFiles,
-  } = useIndexingDocument();
+  } = useIndexingDocuments();
 
   const onFilesChosen = (e: React.ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files) as File[];

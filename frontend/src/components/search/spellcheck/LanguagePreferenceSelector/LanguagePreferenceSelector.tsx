@@ -1,6 +1,6 @@
 import React from 'react';
 import { SupportedLanguage } from '../../../../models/search/spellcheck/SupportedLanguage';
-import { usePreferenceLanguage } from '../../../../lib/hooks/usePreferenceLanguage';
+import { usePreferenceLanguage } from '../../../../lib/hooks/search/usePreferenceLanguage';
 import { Form, Stack } from 'react-bootstrap';
 
 const getSupportedLanguageValue = (language: string) => {

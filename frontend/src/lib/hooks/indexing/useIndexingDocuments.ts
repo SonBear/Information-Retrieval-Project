@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
-import { indexDocuments } from '../../services/documents/documents';
+import { indexDocuments } from '../../../services/documents/documents';
 
-export const useIndexingDocument = () => {
+export const useIndexingDocuments = () => {
   const filesInputRef = useRef<HTMLInputElement>(null);
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
 

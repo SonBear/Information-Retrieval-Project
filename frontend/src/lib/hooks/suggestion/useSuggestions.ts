@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { SuggestionResult } from '../../models/search/suggestion/SuggestionResult';
-import { getSuggestions } from '../../services/suggest/suggest';
+import { SuggestionResult } from '../../../models/search/suggestion/SuggestionResult';
+import { getSuggestions } from '../../../services/suggest/suggest';
 
 export const useSuggestions = () => {
   const [suggestionResult, setSuggestionResult] = useState<SuggestionResult>();
