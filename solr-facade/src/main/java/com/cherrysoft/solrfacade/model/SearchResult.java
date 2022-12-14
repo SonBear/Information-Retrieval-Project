@@ -13,6 +13,7 @@ import java.util.List;
 public final class SearchResult {
   public static final SearchResult EMPTY = new SearchResult();
   private final List<RecoveredDocument> recoveredDocuments;
+  private long totalDocsFound;
   private SpellcheckResult spellcheckResult;
 
   public SearchResult() {

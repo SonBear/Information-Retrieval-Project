@@ -6,4 +6,5 @@ public final class SearchFields {
   public static final String FIELD_TITLE = "title";
   public static final String FIELD_URL = "attr_url";
   public static final String FIELD_CONTENT_TYPE = "stream_content_type";
+  public static final int ROWS_PER_PAGE = 10;
 }
