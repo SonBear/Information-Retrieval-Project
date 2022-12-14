@@ -33,7 +33,7 @@ public class CrawlerService {
   }
 
   private void addPayloadToSpider() {
-    spider.addUrl(payload.toArray());
+    spider.addUrl(payload.toEncodedAndTrimmedUrlArray());
   }
 
   private void startSpider() {

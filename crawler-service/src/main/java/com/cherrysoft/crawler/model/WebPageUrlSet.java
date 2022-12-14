@@ -1,14 +1,13 @@
 package com.cherrysoft.crawler.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.cherrysoft.crawler.utils.URLUtils;
 import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+import static java.util.stream.Collectors.toSet;
+
 @ToString
 public class WebPageUrlSet {
   public static final WebPageUrlSet EMPTY = new WebPageUrlSet(Set.of());
@@ -27,19 +26,19 @@ public class WebPageUrlSet {
   }
 
   public WebPageUrlSet merge(WebPageUrlSet otherUrlSet) {
-    Set<String> mergedUrls = new HashSet<>(urls);
+    Set<String> mergedUrls = new HashSet<>(getUrls());
     mergedUrls.addAll(otherUrlSet.getUrls());
     return new WebPageUrlSet(mergedUrls);
   }
 
   public WebPageUrlSet asymmetricDiff(WebPageUrlSet otherUrlSet) {
-    Set<String> diff = new HashSet<>(urls);
+    Set<String> diff = new HashSet<>(getUrls());
     diff.removeAll(otherUrlSet.getUrls());
     return new WebPageUrlSet(diff);
   }
 
   public WebPageUrlSet intersection(WebPageUrlSet otherUrlSet) {
-    Set<String> intersection = new HashSet<>(urls);
+    Set<String> intersection = new HashSet<>(getUrls());
     intersection.retainAll(otherUrlSet.getUrls());
     return new WebPageUrlSet(intersection);
   }
@@ -48,12 +47,19 @@ public class WebPageUrlSet {
     return urls.isEmpty();
   }
 
-  public String[] toArray() {
-    return getUrls().toArray(String[]::new);
-  }
-
   public Set<String> getUrls() {
     return new HashSet<>(urls);
+  }
+
+  public String[] toEncodedAndTrimmedUrlArray() {
+    return getEncodedAndTrimmedUrls().toArray(String[]::new);
+  }
+
+  private Set<String> getEncodedAndTrimmedUrls() {
+    return urls.stream()
+        .map(String::trim)
+        .map(URLUtils::encodeUrl)
+        .collect(toSet());
   }
 
 }

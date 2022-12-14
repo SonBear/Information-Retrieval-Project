@@ -53,8 +53,7 @@ public class URLRepositoryImp implements URLRepository {
 
   private WebPageUrlSet tryGetSavedUrlSet() throws IOException {
     try (Reader reader = new FileReader(URLS_FILE_NAME)) {
-      List<String> savedUrls = gson.fromJson(reader, new TypeToken<>() {
-      }.getType());
+      List<String> savedUrls = gson.fromJson(reader, new TypeToken<>() {}.getType());
       return new WebPageUrlSet(new HashSet<>(savedUrls));
     }
   }
