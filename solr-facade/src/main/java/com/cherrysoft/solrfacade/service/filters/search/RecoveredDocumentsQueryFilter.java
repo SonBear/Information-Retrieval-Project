@@ -15,12 +15,17 @@ public class RecoveredDocumentsQueryFilter extends QueryFilter<SearchResult> {
 
   @Override
   public void processQueryResult(SearchResult payload) {
+    payload.setTotalDocsFound(getTotalDocsFound());
     payload.addWebPageDocuments(getRecoveredDocuments());
     super.processQueryResult(payload);
   }
 
   private List<RecoveredDocument> getRecoveredDocuments() {
     return response.getBeans(RecoveredDocument.class);
+  }
+
+  private long getTotalDocsFound() {
+    return response.getResults().getNumFound();
   }
 
 }

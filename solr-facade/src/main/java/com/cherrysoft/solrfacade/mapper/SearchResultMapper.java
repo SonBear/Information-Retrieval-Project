@@ -12,6 +12,7 @@ public abstract class SearchResultMapper {
   public SearchResultDTO toDto(SearchResult result) {
     var recoveredDocumentDtoList = recoveredDocumentMapper.toDtoList(result.getRecoveredDocuments());
     return SearchResultDTO.builder()
+        .totalDocsFound(result.getTotalDocsFound())
         .documents(recoveredDocumentDtoList)
         .spellcheckResult(spellcheckResultDto(result.getSpellcheckResult()))
         .build();
