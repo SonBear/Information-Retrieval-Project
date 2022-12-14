@@ -38,6 +38,7 @@ public class SearchService {
   }
 
   private void prepareSearchQuery() {
+    solrQuery.setStart(searchSpec.getStart());
     solrQuery.setQuery(searchSpec.getQuery());
     solrQuery.setParam("spellcheck.dictionary", searchSpec.getDictionary());
   }
