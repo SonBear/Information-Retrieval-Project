@@ -1,58 +1,48 @@
 import { SpellcheckResult } from '../../../../models/search/spellcheck/SpellcheckResult';
-import { appendQueryParams } from '../../../../utils/query-params';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LanguagePreferenceSelector } from '../LanguagePreferenceSelector';
 import { Stack } from 'react-bootstrap';
 import { When } from 'react-if';
+import { useHomeQueryParams } from '../../../../lib/hooks/useHomeQueryParams';
+import { useSpellcheckResultWrapper } from '../../../../lib/hooks/spellcheck/useSpellcheckResultWrapper';
 
 export interface SpellcheckerPanelProps {
   spellcheckResult?: SpellcheckResult;
 }
 
-const hasSpellcheckResult = (spellcheckResult: SpellcheckResult) => {
-  return (
-    spellcheckResult.suggestions.length > 0 ||
-    spellcheckResult.collations.length > 0
-  );
-};
-
 export const SpellcheckerPanel = ({
   spellcheckResult,
 }: SpellcheckerPanelProps) => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const { setSearchQuery } = useHomeQueryParams();
+  const { hasSpellcheckResult, getBestSuggestions } =
+    useSpellcheckResultWrapper(spellcheckResult);
 
   const onReplaceForSuggestion = (suggestion: string) => {
-    searchParams.set('query', suggestion);
-    navigate(appendQueryParams('/', searchParams.toString()));
+    setSearchQuery(suggestion);
   };
 
   if (!spellcheckResult) {
     return <LanguagePreferenceSelector />;
   }
 
-  let bestSuggestions = spellcheckResult.suggestions;
-  if (spellcheckResult.collations.length > 0) {
-    bestSuggestions = spellcheckResult.collations;
-  }
+  const bestSuggestions = getBestSuggestions();
 
   return (
     <>
       <LanguagePreferenceSelector />
-      {hasSpellcheckResult(spellcheckResult) && (
+      {hasSpellcheckResult() && (
         <div className="fs-5">
           <div>Did you mean?</div>
           <Stack direction="horizontal" gap={3}>
-            {bestSuggestions.map((bestSuggestion, index) => (
+            {bestSuggestions.map((suggestion, index) => (
               <>
                 <p
                   role="button"
                   className="fst-italic link-primary"
                   key={index}
-                  onClick={() => onReplaceForSuggestion(bestSuggestion)}>
-                  {bestSuggestion}
+                  onClick={() => onReplaceForSuggestion(suggestion)}>
+                  {suggestion}
                 </p>
-                {/* Don't show separator if its last element */}
+                {/* Don't show separator when last element */}
                 <When condition={index !== bestSuggestions.length - 1}>
                   <p>/</p>
                 </When>

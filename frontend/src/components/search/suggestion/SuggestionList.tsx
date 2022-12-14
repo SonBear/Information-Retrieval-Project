@@ -11,7 +11,7 @@ export const SuggestionList = ({
   suggestionResult,
   onSuggestionClicked,
 }: SuggestionListProps) => {
-  const onItemClicked = (event: any) => {
+  const onSuggestionItemClicked = (event: any) => {
     const suggestion = event.target.firstChild.data;
     onSuggestionClicked(suggestion);
   };
@@ -24,7 +24,10 @@ export const SuggestionList = ({
     <ListGroup style={{ top: '40px' }} className="position-absolute w-100">
       {suggestionResult.suggestions.map((suggestion, index) => {
         return (
-          <ListGroup.Item key={index} role="button" onClick={onItemClicked}>
+          <ListGroup.Item
+            key={index}
+            role="button"
+            onClick={onSuggestionItemClicked}>
             {suggestion}
           </ListGroup.Item>
         );

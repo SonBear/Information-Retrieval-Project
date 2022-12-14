@@ -4,8 +4,8 @@ import {
   getIndexedUrls,
   indexUrls,
   reindexUrls,
-} from '../../services/urls/urls';
-import { IndexingResultStatus } from '../../models/indexing-urls/IndexingResultStatus';
+} from '../../../services/urls/urls';
+import { IndexingResultStatus } from '../../../models/indexing/urls/IndexingResultStatus';
 
 export enum IndexingStatus {
   INDEXING = 'Indexing...',

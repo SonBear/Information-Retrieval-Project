@@ -1,6 +1,6 @@
 import { api } from '../http';
-import { UrlList } from '../../models/indexing-urls/UrlList';
-import { IndexingResultStatus } from '../../models/indexing-urls/IndexingResultStatus';
+import { UrlList } from '../../models/indexing/urls/UrlList';
+import { IndexingResultStatus } from '../../models/indexing/urls/IndexingResultStatus';
 
 export const getIndexedUrls = async () => {
   const indexedUrls = await api.get<UrlList>('/crawler/urls');

@@ -1,11 +1,11 @@
-import { UrlListing } from '../../components/indexing-urls/UrlListing';
-import { IndexingOptions } from '../../components/indexing-urls/IndexingOptions';
+import { UrlListing } from '../../components/indexing/urls/UrlListing';
+import { IndexingOptions } from '../../components/indexing/urls/IndexingOptions';
 import {
   IndexingStatus,
   useIndexingUrls,
-} from '../../lib/hooks/useIndexingUrls';
+} from '../../lib/hooks/indexing/useIndexingUrls';
 import { useNavigate } from 'react-router-dom';
-import { IndexingResultStatusPanel } from '../../components/indexing-urls/IndexingResultStatusPanel';
+import { IndexingResultStatusPanel } from '../../components/indexing/urls/IndexingResultStatusPanel';
 import { Container, Stack } from 'react-bootstrap';
 
 export const IndexingUrls = () => {

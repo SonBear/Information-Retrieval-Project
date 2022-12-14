@@ -1,10 +1,10 @@
 import { SearchPanel } from '../../components/search/documents/SearchPanel';
 import { DocumentResultList } from '../../components/search/documents/DocumentResultList';
 import { Link } from 'react-router-dom';
-import { useSearch } from '../../lib/hooks/useSearch';
+import { useSearch } from '../../lib/hooks/search/useSearch';
 import { FacetPanel } from '../../components/search/facet/FacetPanel';
 import { SpellcheckerPanel } from '../../components/search/spellcheck/SpellcheckPanel';
-import { IndexingDocumentPanel } from '../../components/indexing-documents/IndexingDocumentPanel';
+import { IndexingDocumentPanel } from '../../components/indexing/documents/IndexingDocumentPanel';
 import { Col, Container, Row, Stack } from 'react-bootstrap';
 import { When } from 'react-if';
 

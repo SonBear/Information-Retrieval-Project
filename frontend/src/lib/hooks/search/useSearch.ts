@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { search } from '../../services/search/search';
-import { SearchResult } from '../../models/search/documents/SearchResult';
+import { search } from '../../../services/search/search';
+import { SearchResult } from '../../../models/search/documents/SearchResult';
 import { useSearchParams } from 'react-router-dom';
 
 export const useSearch = () => {

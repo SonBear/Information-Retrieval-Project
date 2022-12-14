@@ -1,5 +1,5 @@
 import { FacetGroup } from '../FacetGroup';
-import { useFacet } from '../../../../lib/hooks/useFacet';
+import { useFacet } from '../../../../lib/hooks/facet/useFacet';
 import { Stack } from 'react-bootstrap';
 
 export const FacetPanel = () => {
