@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum SupportedFacetField {
   DOCUMENT_TYPE("document_type", "documentType"),
-  LANGUAGE("language", "language");
+  LANGUAGE("facet_language", "language");
 
   public final String fieldName;
   private final String paramName;
