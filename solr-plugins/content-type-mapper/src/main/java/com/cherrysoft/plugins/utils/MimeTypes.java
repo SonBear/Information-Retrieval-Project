@@ -10,6 +10,7 @@ public class MimeTypes {
     EXTENSIONS.put("application/pdf", "PDF");
     EXTENSIONS.put("text/html", "HTML");
     EXTENSIONS.put("text/xml", "XML");
+    EXTENSIONS.put("text/plain", "TEXT");
 
     EXTENSIONS.put("application/msword", "DOC");
 
