@@ -8,9 +8,11 @@ import org.apache.solr.client.solrj.response.SpellCheckResponse;
 import java.util.Collection;
 import java.util.List;
 
+import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 
 public class SpellcheckQueryFilter extends QueryFilter<SearchResult> {
+  private SpellCheckResponse spellCheckResponse;
 
   public SpellcheckQueryFilter(QueryResponse response) {
     super(response);
@@ -18,6 +20,7 @@ public class SpellcheckQueryFilter extends QueryFilter<SearchResult> {
 
   @Override
   public void processQueryResult(SearchResult payload) {
+    spellCheckResponse = response.getSpellCheckResponse();
     SearchResult.SpellcheckResult spellcheckResult = SearchResult.SpellcheckResult.builder()
         .suggestions(getSuggestions())
         .collations(getCollations())
@@ -28,7 +31,10 @@ public class SpellcheckQueryFilter extends QueryFilter<SearchResult> {
   }
 
   private List<String> getSuggestions() {
-    return response.getSpellCheckResponse()
+    if (isNullSpellcheckResponse()) {
+      return List.of();
+    }
+    return spellCheckResponse
         .getSuggestions().stream()
         .map(SpellCheckResponse.Suggestion::getAlternatives)
         .flatMap(Collection::stream)
@@ -36,10 +42,17 @@ public class SpellcheckQueryFilter extends QueryFilter<SearchResult> {
   }
 
   private List<String> getCollations() {
-    return response.getSpellCheckResponse()
+    if (isNullSpellcheckResponse()) {
+      return List.of();
+    }
+    return spellCheckResponse
         .getCollatedResults().stream()
         .map(SpellCheckResponse.Collation::getCollationQueryString)
         .collect(toList());
+  }
+
+  private boolean isNullSpellcheckResponse() {
+    return isNull(spellCheckResponse);
   }
 
 }
