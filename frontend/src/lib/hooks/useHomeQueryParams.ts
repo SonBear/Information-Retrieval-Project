@@ -6,6 +6,8 @@ export const useHomeQueryParams = () => {
   const [searchParams] = useSearchParams();
 
   const setSearchQuery = (query: string) => {
+    // Reset to page 1 whenever a new search is made.
+    searchParams.delete('page');
     setQueryParam('query', query);
   };
 
