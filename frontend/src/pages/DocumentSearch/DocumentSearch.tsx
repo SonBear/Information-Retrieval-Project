@@ -1,5 +1,6 @@
 import { SearchPanel } from '../../components/search/documents/SearchPanel';
 import { DocumentResultList } from '../../components/search/documents/DocumentResultList';
+import { SearchResultPagination } from '../../components/search/documents/SearchResultPagination';
 import { Link } from 'react-router-dom';
 import { useSearch } from '../../lib/hooks/search/useSearch';
 import { FacetPanel } from '../../components/search/facet/FacetPanel';
@@ -66,8 +67,10 @@ export const DocumentSearch = () => {
             totalDocsFound={searchResult?.totalDocsFound}
             documents={searchResult?.documents}
             loading={loading}
-            documents={searchResult?.documents}
           />
+          {searchResult && (
+            <SearchResultPagination searchResult={searchResult} />
+          )}
         </Col>
       </Row>
     </Container>
