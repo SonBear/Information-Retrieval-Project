@@ -3,13 +3,15 @@ import { RetrievedDocument } from '../../../../models/search/documents/Retrieved
 import { Stack } from 'react-bootstrap';
 
 export interface DocumentResultListProps {
-  loading?: boolean;
+  totalDocsFound?: number;
   documents?: RetrievedDocument[];
+  loading?: boolean;
 }
 
 export const DocumentResultList = ({
-  loading = false,
+  totalDocsFound,
   documents,
+  loading = false,
 }: DocumentResultListProps) => {
   if (loading) {
     return <div>Loading...</div>;
@@ -25,7 +27,7 @@ export const DocumentResultList = ({
 
   return (
     <Stack gap={3}>
-      <div className="fs-4">Total results: {documents.length}</div>
+      <div className="fs-4">Total documents found: {totalDocsFound}</div>
       {documents.map((doc, index) => (
         <RetrievedDocumentCard key={doc.id} document={doc} />
       ))}

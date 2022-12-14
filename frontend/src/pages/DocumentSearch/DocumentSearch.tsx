@@ -63,6 +63,8 @@ export const DocumentSearch = () => {
         </Col>
         <Col md={6}>
           <DocumentResultList
+            totalDocsFound={searchResult?.totalDocsFound}
+            documents={searchResult?.documents}
             loading={loading}
             documents={searchResult?.documents}
           />
